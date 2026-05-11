@@ -156,6 +156,12 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+		
+		#if mobile
+		controls.isInSubstate = true;
+		addVirtualPad(FULL, A_B_R);
+		addVirtualPadCamera();
+		#end
 	}
 
 	var nextAccept:Int = 5;
@@ -174,6 +180,11 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		if (controls.BACK) {
 			close();
+			#if mobile
+		    new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			controls.isInSubstate = false;
+		    });
+		    #end
 			ClientPrefs.saveSettings();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
@@ -287,7 +298,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET)
+			if(controls.RESET #if mobile || virtualPad.buttonR.justPressed #end)
 			{
 				for (i in 0...optionsArray.length)
 				{

@@ -214,6 +214,11 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+		
+		#if mobile
+		addVirtualPad(LEFT_FULL, FREEPLAY); //fuck
+		addVirtualPadCamera();
+		#end
 		super.create();
 	}
 
@@ -221,6 +226,13 @@ class FreeplayState extends MusicBeatState
 		changeSelection(0, false);
 		persistentUpdate = true;
 		super.closeSubState();
+		#if mobile
+		removeVirtualPad();
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			addVirtualPad(LEFT_FULL, FREEPLAY);
+			controls.isInSubstate = false;
+		});
+		#end
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -282,11 +294,11 @@ class FreeplayState extends MusicBeatState
 		var leftP = controls.UI_LEFT_P;
 		var rightP = controls.UI_RIGHT_P;
 		var accepted = controls.ACCEPT;
-		var space = FlxG.keys.justPressed.SPACE;
-		var ctrl = FlxG.keys.justPressed.CONTROL;
+		var space = FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonP.justPressed #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL #if mobile || virtualPad.buttonC.justPressed #end;
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.justPressed #end) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -350,6 +362,7 @@ class FreeplayState extends MusicBeatState
 		{
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
+			#if mobile controls.isInSubstate = true; #end
 		}
 		else if(space)
 		{

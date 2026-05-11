@@ -51,6 +51,10 @@ class AchievementsMenuState extends MusicBeatState
 				options.push(Achievements.achievementsStuff[i]);
 				achievementIndex.push(i);
 			}
+			
+		#if mobile
+		addVirtualPad(UP_DOWN, B);
+		#end
 		}
 
 		for (i in 0...options.length) {

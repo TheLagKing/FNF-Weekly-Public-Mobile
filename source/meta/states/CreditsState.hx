@@ -169,6 +169,10 @@ class CreditsState extends MusicBeatState
 		bg.color = getCurrentBGColor();
 		intendedColor = bg.color;
 		changeSelection();
+		#if mobile
+		addVirtualPad(UP_DOWN, A_B_S);
+		addVirtualPadCamera();
+		#end
 		super.create();
 	}
 
@@ -186,7 +190,7 @@ class CreditsState extends MusicBeatState
 			if(creditsStuff.length > 1)
 			{
 				var shiftMult:Int = 1;
-				if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+				if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.justPressed #end) shiftMult = 3;
 
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;

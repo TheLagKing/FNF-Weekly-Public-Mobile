@@ -33,6 +33,11 @@ class FinalCreditsState extends MusicBeatState
         finalImage.screenCenter();
         finalImage.alpha = 0;
         add(finalImage);
+        
+        #if mobile
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
+		#end
 
         new FlxTimer().start(170.5, function(tmr:FlxTimer)
         {

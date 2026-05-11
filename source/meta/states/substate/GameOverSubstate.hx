@@ -47,6 +47,13 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		instance = this;
 		PlayState.instance.callOnScripts('onGameOverStart', []);
+		
+		#if mobile
+		if (!isVideo) {
+		addVirtualPad(NONE, A_B);
+		addVirtualPadCamera();
+		}
+		#end
 
 		super.create();
 	}
@@ -110,6 +117,13 @@ class GameOverSubstate extends MusicBeatSubstate
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
 	{
+	    #if mobile
+		if(isVideo) {
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		}
+		
 		PlayState.instance.callOnScripts('onUpdate', [elapsed]);
 		PlayState.instance.callOnHScripts('update', [elapsed]);
 		super.update(elapsed);
@@ -121,7 +135,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
-		if (controls.ACCEPT)
+		if (controls.ACCEPT #if mobile justTouched #end)
 		{
 			endBullshit();
 		}

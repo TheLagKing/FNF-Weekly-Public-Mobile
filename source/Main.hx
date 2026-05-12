@@ -18,6 +18,10 @@ import meta.states.*;
 import meta.data.*;
 import meta.CompilationStuff;
 
+import lime.app.Application;
+import lime.system.System as LimeSystem;
+import mobile.states.CopyState;
+
 class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
@@ -41,6 +45,13 @@ class Main extends Sprite
 
 	public function new()
 	{
+	    #if mobile
+ 		#if android
+ 		SUtil.requestPermissions();
+ 		#end
+ 		Sys.setCwd(SUtil.getStorageDirectory());
+ 		#end
+		mobile.backend.CrashHandler.init();
 		super();
 
 		if (stage != null)
@@ -99,7 +110,7 @@ class Main extends Sprite
 		// #end
 
 		ClientPrefs.loadDefaultKeys();
-		addChild(new FNFGame(gameWidth, gameHeight, initialState, #if(flixel < "5.0.0")zoom,#end framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FNFGame(gameWidth, gameHeight, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? initialState : CopyState #else initialState #end, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
 		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
@@ -126,6 +137,10 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
+		
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+
+		LimeSystem.allowScreenTimeout = ClientPrefs.screensaver;
 
 		FlxG.signals.gameResized.add(onResize);
 		FlxG.signals.preStateSwitch.add(onStateSwitch);

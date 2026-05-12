@@ -33,6 +33,20 @@ import gameObjects.BGSprite;
 
 import meta.states.KUTValueHandler;
 
+import mobile.backend.SUtil;
+
+#if android
+import android.content.Context as AndroidContext;
+import android.widget.Toast as AndroidToast;
+import android.os.Environment as AndroidEnvironment;
+import android.Permissions as AndroidPermissions;
+import android.Settings as AndroidSettings;
+import android.Tools as AndroidTools;
+import android.os.Build.VERSION as AndroidVersion;
+import android.os.Build.VERSION_CODES as AndroidVersionCode;
+import android.os.BatteryManager as AndroidBatteryManager;
+#end
+
 import meta.data.ExUtils;
 import meta.data.ExUtils.addShader as ApplyShaderToCamera;
 import meta.data.ExUtils.removeShader as RemoveShaderFromCamera;

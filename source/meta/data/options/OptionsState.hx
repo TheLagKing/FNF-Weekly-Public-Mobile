@@ -40,6 +40,7 @@ class OptionsState extends MusicBeatState
 	public static var onPlayState:Bool = false;
 
 	function openSelectedSubstate(label:String) {
+	#if mobile virtualPad.visible = false; #end
 		switch(label) {
 			case 'Notes':
 				openSubState(new meta.data.options.NoteSettingsSubState());
@@ -92,6 +93,12 @@ class OptionsState extends MusicBeatState
 
 		changeSelection();
 		ClientPrefs.saveSettings();
+		
+		#if mobile
+		if (controls.isInSubstate)
+            controls.isInSubstate = false;
+        addVirtualPad(UP_DOWN, A_B);
+        #end
 
 		super.create();
 	}
@@ -99,6 +106,13 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		#if mobile
+		removeVirtualPad();
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			addVirtualPad(UP_DOWN, A_B);
+			controls.isInSubstate = false;
+		});
+		#end
 	}
 
 	override function update(elapsed:Float) {
@@ -122,7 +136,7 @@ class OptionsState extends MusicBeatState
 			else MusicBeatState.switchState(new WeeklyMainMenuState());
 		}
 
-		if (controls.ACCEPT) {
+		if (#if mobile !controls.isInSubstate && #end controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
 	}

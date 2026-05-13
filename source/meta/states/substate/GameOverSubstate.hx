@@ -123,6 +123,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	                if (touch.justPressed)
 		                justTouched = true;
 		}
+		#end
 		
 		PlayState.instance.callOnScripts('onUpdate', [elapsed]);
 		PlayState.instance.callOnHScripts('update', [elapsed]);

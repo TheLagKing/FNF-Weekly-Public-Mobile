@@ -1,4 +1,4 @@
-package funkin.mobile.backend;
+package mobile.backend;
 
 import openfl.events.UncaughtErrorEvent;
 import openfl.events.ErrorEvent;

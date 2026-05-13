@@ -4,6 +4,7 @@ package meta.data;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 import meta.states.*;
+#end
 
 #if LUA_ALLOWED
 import llua.Lua;
@@ -12,6 +13,7 @@ import llua.State;
 
 class DiscordClient
 {
+	#if DISCORD_ALLOWED
 	public static var discordPresences:Array<String> = [
 		"Manual Blast", 
         "Monotone Attack", 
@@ -221,5 +223,5 @@ class DiscordClient
 		});
 	}
 	#end
-}
 #end
+}

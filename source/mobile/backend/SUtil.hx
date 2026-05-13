@@ -1,4 +1,4 @@
-package funkin.mobile.backend;
+package mobile.backend;
 
 /**
  * A storage class for mobile.

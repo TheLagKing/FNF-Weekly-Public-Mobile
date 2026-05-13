@@ -75,7 +75,7 @@ class MobileHitbox extends FlxMobileInputManager
 			
 			hintTween = FlxTween.tween(hint, {alpha: alphaTarget}, 0.075, {
 				ease: FlxEase.circInOut,
-				onComplete: function(_) hintTween = null;
+				onComplete: function(_) hintTween = null
 			});
 		}
 		
@@ -85,7 +85,7 @@ class MobileHitbox extends FlxMobileInputManager
 			
 			hintTween = FlxTween.tween(hint, {alpha: 0.00001}, 0.15, {
 				ease: FlxEase.circInOut,
-				onComplete: function(_) hintTween = null;
+				onComplete: function(_) hintTween = null
 			});
 		}
 		

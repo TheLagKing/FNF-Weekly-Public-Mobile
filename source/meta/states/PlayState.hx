@@ -1428,15 +1428,18 @@ class PlayState extends MusicBeatState
 		bottomBar.cameras = [camOther];
 		
 		#if mobile
-		 addMobileControls(false);
-	     controls.isInSubstate = hitbox.visible = false; //dont do ts if you copying
-	     scripts.set('hitbox', hitbox);
-	     if (ClientPrefs.PauseButton) {
-	     mobile.backend.PauseButton.show(function()
-	     {
-	     if (scripts.call('onPause', []) != ScriptConstants.STOP_FUNC)
-		openPauseMenu();
-		});
+		addMobileControls(false);
+		controls.isInSubstate = hitbox.visible = false; //dont do ts if you copying
+		scripts.set('hitbox', hitbox);
+					
+		if (ClientPrefs.PauseButton)
+		{
+			mobile.backend.PauseButton.show(function()
+			{
+				if (scripts.call('onPause', []) != ScriptConstants.STOP_FUNC)
+					openPauseMenu();
+			});
+		}
 		#end
 
 		setOnScripts('playFields', playFields);
@@ -3242,6 +3245,10 @@ class PlayState extends MusicBeatState
 		setOnHScripts('curStep', curStep);
 		setOnHScripts('curBeat', curBeat);
 
+		#if mobile
+		mobile.backend.PauseButton.update();
+		#end
+
 
 		// if(botplayTxt.visible) {
 		// 	botplaySine += 180 * elapsed;
@@ -4418,7 +4425,7 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		updateTime = false;
 		#if mobile 
-		mobile hitbox.visible = false;
+		hitbox.visible = false;
 		if (ClientPrefs.PauseButton) mobile.backend.PauseButton.hide();
 		#end
 

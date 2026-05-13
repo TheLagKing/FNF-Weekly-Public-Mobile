@@ -161,6 +161,16 @@ class CoolUtil
 		FlxG.openURL(site);
 		#end
 	}
+	
+	public static function showPopUp(message:String, title:String):Void
+	{
+		FlxG.stage.window.alert(message, title);
+	}
+
+	public static function getCPUThreadsCount():Int
+    {
+        return 1;
+	}
 
 	//this is just for returning key inputs to a string
 	//so if you get a string and do smth like:

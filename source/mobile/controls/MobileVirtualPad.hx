@@ -28,6 +28,7 @@ enum MobileActionMode {
     A_B_C;
 	A_B_S;
 	A_B_R;
+	A_B_P;
 	FREEPLAY;
     CHART_EDITOR;
     NONE;
@@ -57,6 +58,7 @@ class MobileVirtualPad extends FlxMobileInputManager
     public var buttonC:FlxButton;
     public var buttonD:FlxButton;
     public var buttonE:FlxButton;
+	public var buttonP:FlxButton;
     public var buttonV:FlxButton;
 	public var buttonR:FlxButton;
 	public var buttonS:FlxButton;
@@ -112,6 +114,10 @@ class MobileVirtualPad extends FlxMobileInputManager
 				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
 			case A_B_S:
 				buttonS = add(createButton(screenW - 384, screenH - 135, 's', 0x99062D, [S]));
+				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+			case A_B_P:
+				buttonP = add(createButton(screenW - 384, screenH - 135, 'p', 0x4A35B9, [P]));
 				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
 				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
 			case FREEPLAY:

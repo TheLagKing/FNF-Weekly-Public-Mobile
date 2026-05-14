@@ -226,13 +226,6 @@ class FreeplayState extends MusicBeatState
 		changeSelection(0, false);
 		persistentUpdate = true;
 		super.closeSubState();
-		#if mobile
-		removeVirtualPad();
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			addVirtualPad(LEFT_FULL, FREEPLAY);
-			controls.isInSubstate = false;
-		});
-		#end
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)

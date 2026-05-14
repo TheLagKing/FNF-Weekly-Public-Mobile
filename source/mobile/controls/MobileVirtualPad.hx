@@ -26,6 +26,9 @@ enum MobileActionMode {
     X;
     A_B;
     A_B_C;
+	A_B_S;
+	A_B_R;
+	FREEPLAY;
     CHART_EDITOR;
     NONE;
 }
@@ -55,6 +58,8 @@ class MobileVirtualPad extends FlxMobileInputManager
     public var buttonD:FlxButton;
     public var buttonE:FlxButton;
     public var buttonV:FlxButton;
+	public var buttonR:FlxButton;
+	public var buttonS:FlxButton;
     public var buttonX:FlxButton;
     public var buttonY:FlxButton;
     public var buttonZ:FlxButton;
@@ -97,7 +102,20 @@ class MobileVirtualPad extends FlxMobileInputManager
             case A_B:
                 buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
                 buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
-            case A_B_C:
+            case A_B_R:
+				buttonR = add(createButton(screenW - 384, screenH - 135, 'r', 0xFF7D00, [R]));
+				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+			case A_B_C:
+				buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
+				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+			case A_B_S:
+				buttonS = add(createButton(screenW - 384, screenH - 135, 's', 0x99062D, [S]));
+				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
+			case FREEPLAY:
+				buttonR = add(createButton(screenW - 510, screenH - 135, 'r', 0xFF7D00, [R]));
 				buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
 				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
 				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));

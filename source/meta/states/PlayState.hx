@@ -1429,7 +1429,7 @@ class PlayState extends MusicBeatState
 		
 		#if mobile
 		addMobileControls(false);
-		controls.isInSubstate = hitbox.visible = false; //dont do ts if you copying
+		hitbox.visible = false;
 		scripts.set('hitbox', hitbox);
 					
 		if (ClientPrefs.PauseButton)

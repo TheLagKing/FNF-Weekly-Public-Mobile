@@ -110,7 +110,6 @@ class OptionsState extends MusicBeatState
 		removeVirtualPad();
 		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			addVirtualPad(UP_DOWN, A_B);
-			controls.isInSubstate = false;
 		});
 		#end
 	}
@@ -136,7 +135,7 @@ class OptionsState extends MusicBeatState
 			else MusicBeatState.switchState(new WeeklyMainMenuState());
 		}
 
-		if (#if mobile !controls.isInSubstate && #end controls.ACCEPT) {
+		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
 	}

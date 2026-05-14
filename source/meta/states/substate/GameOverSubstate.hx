@@ -117,6 +117,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
 	{
+		var justTouched:Bool = false;
 	    #if mobile
 		if(isVideo) {
                 for (touch in FlxG.touches.list)
@@ -136,7 +137,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 
-		if (controls.ACCEPT #if mobile || justTouched #end)
+		if (controls.ACCEPT || justTouched )
 		{
 			endBullshit();
 		}

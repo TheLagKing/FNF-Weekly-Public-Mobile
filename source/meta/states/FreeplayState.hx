@@ -355,7 +355,6 @@ class FreeplayState extends MusicBeatState
 		{
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
-			#if mobile controls.isInSubstate = true; #end
 		}
 		else if(space)
 		{

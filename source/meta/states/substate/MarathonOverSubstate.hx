@@ -90,7 +90,6 @@ class MarathonOverSubstate extends MusicBeatSubstate
         FlxG.camera.follow(camFollowPos, LOCKON, 1);
         
         #if mobile
-		controls.isInSubstate = true;
 		addVirtualPad(NONE, A);
 		addVirtualPadCamera();
 		#end

@@ -34,7 +34,7 @@ jobs:
       
       - name: Install Libraries
         run: |
-          haxelib install hxcpp --quiet
+          haxelib git hxcpp https://github.com/kittycathy233/hxcpp main --quiet
           haxelib git lime https://github.com/kittycathy233/lime main --quiet
           haxelib install openfl 9.2.2 --quiet
           haxelib install flixel 5.2.2 --quiet
@@ -50,7 +50,7 @@ jobs:
           haxelib git hxvlc https://github.com/MAJigsaw77/hxvlc 70e7f5f3e76d526ac6fb8f0e6665efe7dfda589d --quiet --skip-dependencies
           haxelib git linc_luajit https://github.com/kittycathy233/linc_luajit main --quiet
           haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc 3538a1c2bb07b04208cd014220207f8173acdb21 --quiet --skip-dependencies
-          
+           
       - name: Configure Android
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME

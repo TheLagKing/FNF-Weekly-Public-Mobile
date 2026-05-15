@@ -31,6 +31,7 @@ class ClientPrefs {
 	public static var quarterbits:Bool = false;
 
 	public static var screensaver:Bool = true;
+	public static var PauseButton:Bool = true;
 
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;

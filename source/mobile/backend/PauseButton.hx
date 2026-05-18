@@ -1,11 +1,11 @@
 package mobile.backend;
 
+import openfl.events.MouseEvent;
 import openfl.display.Sprite;
 import openfl.display.Bitmap;
 import openfl.Assets;
 import openfl.Lib;
 
-import flixel.input.mouse.FlxMouseEvent;
 import flixel.FlxG;
 
 /*
@@ -40,11 +40,10 @@ class PauseButton extends Sprite
 
 		scaleX = scaleY = 0.8;
 		
-		FlxMouseEvent.add(button,(button)->
-		{
-			if (onClick != null)
-				onClick();
-		});
+		button.addEventListener(MouseEvent.CLICK, function(_)
+			{
+				if (onClick != null) onClick();
+			});
 	}
 
 	public static function show(?callback:Void->Void):Void

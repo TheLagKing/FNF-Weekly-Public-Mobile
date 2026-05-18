@@ -12,6 +12,7 @@ import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
+import flixel.util.FlxDestroyUtil;
 import flixel.FlxState;
 import flixel.FlxBasic;
 import meta.data.*;

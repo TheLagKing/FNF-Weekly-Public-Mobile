@@ -1430,13 +1430,13 @@ class PlayState extends MusicBeatState
 		#if mobile
 		addMobileControls(false);
 		hitbox.visible = false;
-		scripts.set('hitbox', hitbox);
+		//scripts.set('hitbox', hitbox);
 					
 		if (ClientPrefs.PauseButton)
 		{
 			mobile.backend.PauseButton.show(function()
 			{
-				if (scripts.call('onPause', []) != ScriptConstants.STOP_FUNC)
+				if (callOnScripts('onPause', []) != ScriptConstants.STOP_FUNC)
 					openPauseMenu();
 			});
 		}
@@ -3244,10 +3244,6 @@ class PlayState extends MusicBeatState
 		setOnHScripts('curDecBeat', curDecBeat);
 		setOnHScripts('curStep', curStep);
 		setOnHScripts('curBeat', curBeat);
-
-		#if mobile
-		mobile.backend.PauseButton.update();
-		#end
 
 
 		// if(botplayTxt.visible) {

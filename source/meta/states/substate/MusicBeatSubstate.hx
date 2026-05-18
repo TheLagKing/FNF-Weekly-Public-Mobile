@@ -6,6 +6,7 @@ import flixel.FlxG;
 import flixel.FlxSubState;
 import flixel.FlxBasic;
 import flixel.FlxSprite;
+import flixel.util.FlxDestroyUtil;
 #if mobile
 import flixel.group.FlxGroup;
 import flixel.FlxCamera;

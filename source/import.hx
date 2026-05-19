@@ -17,6 +17,13 @@ import flixel.system.FlxSound;
 import meta.data.Discord;
 #end
 
+#if sys
+import sys.*;
+import sys.io.*;
+#elseif js
+import js.html.*;
+#end
+
 import Init;
 
 import hxvlc.flixel.*;

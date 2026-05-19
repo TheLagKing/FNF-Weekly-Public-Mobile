@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: FNF WEEKLY MOBILE
-          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
 
       - name: Clearing already existing cache

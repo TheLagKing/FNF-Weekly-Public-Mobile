@@ -21,12 +21,13 @@ import meta.CompilationStuff;
 import lime.app.Application;
 import lime.system.System as LimeSystem;
 import mobile.states.CopyState;
+import flixel.system.FlxSplash;
 
 class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = Init; // The FlxState the game starts with.
+	var initialState:Class<FlxState> = FlxSplash; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
@@ -108,6 +109,8 @@ class Main extends Sprite
 		// initialState = TitleState;		
 		// #end
 		// #end
+
+		FlxSplash.nextState = Init;
 
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FNFGame(gameWidth, gameHeight, #if (mobile && MODS_ALLOWED) CopyState.checkExistingFiles() ? initialState : CopyState #else initialState #end, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));

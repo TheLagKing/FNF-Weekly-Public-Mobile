@@ -11,6 +11,7 @@ import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
+import flixel.system.FlxSplash;
 
 /**
  * ...
@@ -42,7 +43,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			FlxG.switchState(new Init());
+			MusicBeatState.switchState(new FlxSplash());
 			return;
 		}
 
@@ -52,7 +53,7 @@ class CopyState extends MusicBeatState
 
 		add(new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xfffde871));
 
-		loadingImage = new FlxSprite(0, 0, Paths.image('menus/menuBG'));
+		loadingImage = new FlxSprite(0, 0, Paths.image('menuBG'));
 		loadingImage.setGraphicSize(0, FlxG.height);
 		loadingImage.updateHitbox();
 		loadingImage.screenCenter();
@@ -81,6 +82,7 @@ class CopyState extends MusicBeatState
 		});
 
 		super.create();
+		copyTweakfile();
 	}
 
 	override function update(elapsed:Float)
@@ -99,7 +101,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () ->
 				{
-					FlxG.switchState(new Init());
+					MusicBeatState.switchState(new FlxSplash());
 				};
 		
 				canUpdate = false;
@@ -226,6 +228,31 @@ class CopyState extends MusicBeatState
 		maxLoopTimes = locatedFiles.length;
 
 		return (maxLoopTimes <= 0);
+	}
+
+    private function copyTweakfile()
+    {
+        var sourceFilePath = "content/modsList.txt"; // Path to the file
+        var destinationFilePath = "modsList.txt"; // Path to where you want to copy the file
+
+        if (OpenFLAssets.exists(sourceFilePath))
+        {
+            try 
+            {
+                var fileBytes:ByteArray = OpenFLAssets.getBytes(sourceFilePath); // Retrieve file data as bytes
+                File.saveBytes(destinationFilePath, fileBytes); // Save bytes to the new location
+                trace("Copied test.txt to external storage successfully.");
+            } 
+            catch (e:haxe.Exception)
+            {
+                failedFiles.push('${sourceFilePath} (${e.message})');
+                failedFilesStack.push('${sourceFilePath} (${e.stack})');
+            }
+        }
+        else 
+        {
+            trace("File modsList.txt does not exist.");
+        }
 	}
 }
 #end

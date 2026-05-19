@@ -3176,6 +3176,25 @@ class PlayState extends MusicBeatState
 		vocals.play();
 
 	}
+	
+	function openPauseMenu():Void
+	{
+	        var ret:Dynamic = callOnScripts('onPause', []);
+			if(ret != Globals.Function_Stop) {
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+
+				if(FlxG.sound.music != null) {
+					FlxG.sound.music.pause();
+					vocals.pause();
+				}
+				openSubState(new PauseSubState());
+				#if desktop
+				DiscordClient.changePresence(detailsPausedText, getPresence(), iconP2.getCharacter());
+				#end
+			}
+		}
 
 	public var paused:Bool = false;
 	public var canReset:Bool = true;
@@ -3252,21 +3271,7 @@ class PlayState extends MusicBeatState
 
 		if (controls.PAUSE #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
-			var ret:Dynamic = callOnScripts('onPause', []);
-			if(ret != Globals.Function_Stop) {
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-
-				if(FlxG.sound.music != null) {
-					FlxG.sound.music.pause();
-					vocals.pause();
-				}
-				openSubState(new PauseSubState());
-				#if desktop
-				DiscordClient.changePresence(detailsPausedText, getPresence(), iconP2.getCharacter());
-				#end
-			}
+			openPauseMenu();
 		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysChart) && !endingSong && !inCutscene)

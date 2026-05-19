@@ -131,7 +131,7 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 		
 	<section if="android">
-		<certificate path="weekly-key.keystore" password="weeklyteam" alias="fckingweeklyidfk" alias-password="weeklyeam" if="android" unless="debug" />
+		<certificate path="weekly-key.keystore" password="weeklyteam" alias="fckingweeklyidfk" alias-password="weeklyteam" if="android" unless="debug" />
 	</section>
 
 	<!--Enable the Flixel core recording system-->

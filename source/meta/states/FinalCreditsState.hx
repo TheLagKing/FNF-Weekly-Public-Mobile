@@ -60,7 +60,7 @@ class FinalCreditsState extends MusicBeatState
     {
         super.update(elapsed);
 
-        if (controls.BACK)
+        if (controls.BACK #if mobile || virtualPad.buttonA.justPressed #end)
         {
 			Init.SwitchToPrimaryMenu(WeeklyMainMenuState);
             FlxG.sound.playMusic(Paths.music(KUTValueHandler.getMenuMusic()));

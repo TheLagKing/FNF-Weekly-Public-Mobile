@@ -1,82 +1,110 @@
 package mobile.backend;
 
-import openfl.events.MouseEvent;
-import openfl.display.Sprite;
-import openfl.display.Bitmap;
-import openfl.Assets;
-import openfl.Lib;
-
 import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup;
+import flixel.FlxCamera;
+import openfl.utils.Assets;
+
+#if mobile
+import flixel.input.touch.FlxTouch;
+#end
 
 /*
  * Originally made by: Dechis
  * 
  * Improved by: StarNova (Cream.BR)
- * ITS OUTSIDE THE VISIBLE SCREEN NOW YAY!!!! (TheLagKing)
  */
-
-class PauseButton extends Sprite
+ 
+class PauseButton
 {
-	private static var instance:PauseButton;
-	private var button:Bitmap;
-	private var onClick:Void->Void;
+    private static var instance:PauseButton;
+    private var pauseButton:FlxSprite;
+    private var isVisible:Bool = false;
+    private var onClickCallback:Void->Void;
+    
+    public static function getInstance():PauseButton 
+    {
+        if (instance == null) 
+            instance = new PauseButton();
+        return instance;
+    }
+    
+    private function new() {}
+    
+    public static function showPauseButtonOnCamera(camera:FlxCamera, ?parent:FlxGroup, ?onClick:Void->Void):Void 
+    {
+        #if mobile
+        var manager = getInstance();
+        
+        manager.pauseButton = new FlxSprite().loadGraphic(Assets.getPath("assets/mobile/pauseButton.png"));
+        manager.pauseButton.antialiasing = true;
+        manager.pauseButton.scrollFactor.set();
+        manager.pauseButton.alpha = 0.7;
+        manager.pauseButton.scale.set(0.8, 0.8);
+        manager.pauseButton.updateHitbox();
+        
+        manager.pauseButton.x = FlxG.width - manager.pauseButton.width - 25;
+        manager.pauseButton.y = 25;
+        
+        manager.pauseButton.cameras = [camera];
+        manager.onClickCallback = onClick;
+        
+        if (parent != null) 
+            parent.add(manager.pauseButton);
+        else 
+            FlxG.state.add(manager.pauseButton);
+        
+        manager.isVisible = true;
+        #else
+        trace("Button for mobile only.");
+        #end
+    }
+    
+    public static function hidePauseButton():Void 
+    {
+        #if mobile
+        var manager = getInstance();
+        if (manager.pauseButton != null && manager.isVisible) 
+        {
+            manager.pauseButton.destroy();
+            manager.pauseButton = null;
+            manager.onClickCallback = null;
+            manager.isVisible = false;
+        }
+        #end
+    }
 
-	public static function getInstance():PauseButton
-	{
-		if (instance == null)
-			instance = new PauseButton();
+    public static function update():Void 
+    {
+        #if mobile
+        var manager = getInstance();
+        
+        if (manager.pauseButton == null || !manager.isVisible) return;
 
-		return instance;
-	}
+        for (touch in FlxG.touches.list)
+        {
+            if (touch.justPressed)
+            {
+                if (touch.overlaps(manager.pauseButton, manager.pauseButton.cameras[0]))
+                {
+                    if (manager.onClickCallback != null) 
+                        manager.onClickCallback();
+                }
+            }
+        }
+        #end
+    }
 
-	private function new()
-	{
-		super();
-
-		button = new Bitmap(Assets.getBitmapData("assets/mobile/pauseButton.png"));
-		addChild(button);
-
-		alpha = 0.7;
-
-		scaleX = scaleY = 0.8;
-		
-		button.addEventListener(MouseEvent.CLICK, function(_)
-			{
-				if (onClick != null) onClick();
-			});
-	}
-
-	public static function show(?callback:Void->Void):Void
-	{
-		#if mobile
-		var manager = getInstance();
-
-		manager.onClick = callback;
-
-		if (manager.parent == null)
-			Lib.current.addChild(manager);
-
-		PauseButton.updatePosition();
-		#end
-	}
-
-	public static function hide():Void
-	{
-		#if mobile
-		var manager = getInstance();
-
-		if (manager.parent != null)
-			manager.parent.removeChild(manager);
-		#end
-	}
-
-	public static function updatePosition():Void
-	{
-		#if mobile
-		var manager = getInstance();
-
-		manager.x = FlxG.stage.stageWidth - (manager.width / 2) - 10;
-		manager.y = -10;
-		#end
-	}
+    public static function updatePosition():Void 
+    {
+        #if mobile
+        var manager = getInstance();
+        if (manager.pauseButton != null && manager.isVisible) 
+        {
+            manager.pauseButton.x = FlxG.width - manager.pauseButton.width - 25;
+            manager.pauseButton.y = 25;
+        }
+        #end
+    }
 }

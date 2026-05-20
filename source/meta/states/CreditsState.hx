@@ -190,10 +190,10 @@ class CreditsState extends MusicBeatState
 			if(creditsStuff.length > 1)
 			{
 				var shiftMult:Int = 1;
-				if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.justPressed #end) shiftMult = 3;
+				if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.pressed #end) shiftMult = 3;
 
-				var upP = controls.UI_UP_P;
-				var downP = controls.UI_DOWN_P;
+				var upP = controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end;
+				var downP = controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end;
 
 				if (upP)
 				{
@@ -206,7 +206,7 @@ class CreditsState extends MusicBeatState
 					holdTime = 0;
 				}
 
-				if(controls.UI_DOWN || controls.UI_UP)
+				if(controls.UI_DOWN || controls.UI_UP #if mobile || virtualPad.buttonDown.justPressed || virtualPad.buttonUp.justPressed #end)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 					holdTime += elapsed;
@@ -219,10 +219,10 @@ class CreditsState extends MusicBeatState
 				}
 			}
 
-			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
+			if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
 				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
 			}
-			if (controls.BACK)
+			if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
 			{
 				if(colorTween != null) {
 					colorTween.cancel();

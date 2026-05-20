@@ -16,14 +16,11 @@ class ARGState extends MusicBeatState
         argText.text = "No way to win, no way to speak" + "\nPerhaps... a website..?" + "\n-Norbert"; //look leth it was like 4 am
 		add(argText);
 		
-		#if mobile
-		addVirtualPad(NONE, B);
-		#end
     }
 
     override public function update(elapsed:Float)
     {
-        if (controls.BACK)
+        if (controls.BACK || FlxG.mouse.justPressed)
         {
             FlxG.sound.play(Paths.sound('cancelMenu'));
             MusicBeatState.switchState(new WeeklyMainMenuState());

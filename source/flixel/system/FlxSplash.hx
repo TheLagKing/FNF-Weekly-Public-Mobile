@@ -99,7 +99,15 @@ class FlxSplash extends MusicBeatState
 	}
 
 	override function update(elapsed:Float) {
-		if (FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER) {
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
+		
+		if (FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER || justTouched) {
 			if (video != null) {
 				video.stop();
 				onComplete();

@@ -298,6 +298,7 @@ class PlayState extends MusicBeatState
 	public var camOverlay:FlxCamera; // shit that should go above all else and not get affected by camHUD changes, but still below camOther (pause menu, etc)
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
+	#if mobile public var camPause:FlxCamera; #end
 	public var cameraSpeed:Float = 1;
 
 	public var allowedToUpdateScoreTXT:Bool = true;
@@ -597,14 +598,17 @@ class PlayState extends MusicBeatState
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOverlay = new FlxCamera();
+		#if mobile camPause = new FlxCamera(); #end
 		camOther = new FlxCamera();
 		camOverlay.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
+		#if mobile camPause.bgColor.alpha = 0; #end
 		camOther.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD,false);
 		FlxG.cameras.add(camOverlay,false);
+		#if mobile FlxG.cameras.add(camPause, false); #end
 		FlxG.cameras.add(camOther,false);
 		setOnScripts('camGame', camGame);
 		setOnScripts('camHUD', camHUD);
@@ -1433,7 +1437,7 @@ class PlayState extends MusicBeatState
 		
 		if (ClientPrefs.PauseButton)
 		{
-			mobile.backend.PauseButton.show(function()
+			mobile.backend.PauseButton.showPauseButtonOnCamera(camPause, null, function()
 			{
 				openPauseMenu();
 			});
@@ -3262,6 +3266,8 @@ class PlayState extends MusicBeatState
 		setOnHScripts('curStep', curStep);
 		setOnHScripts('curBeat', curBeat);
 
+		#if mobile if (ClientPrefs.PauseButton) mobile.backend.PauseButton.update(); #end
+
 
 		// if(botplayTxt.visible) {
 		// 	botplaySine += 180 * elapsed;
@@ -4425,7 +4431,7 @@ class PlayState extends MusicBeatState
 		updateTime = false;
 		#if mobile 
 		hitbox.visible = false;
-		if (ClientPrefs.PauseButton) mobile.backend.PauseButton.hide();
+		if (ClientPrefs.PauseButton) mobile.backend.PauseButton.hidePauseButton();
 		#end
 
 		deathCounter = 0;

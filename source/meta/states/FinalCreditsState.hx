@@ -35,8 +35,9 @@ class FinalCreditsState extends MusicBeatState
         add(finalImage);
         
         #if mobile
-		addVirtualPad(NONE, A_B);
+		addVirtualPad(NONE, A);
 		addVirtualPadCamera();
+		virtualPad.alpha = 0.4;
 		#end
 
         new FlxTimer().start(170.5, function(tmr:FlxTimer)
@@ -66,7 +67,7 @@ class FinalCreditsState extends MusicBeatState
             FlxG.sound.music.looped = true;
         }
 
-        if (controls.ACCEPT && ended == true)
+        if (controls.ACCEPT && ended == true #if mobile || virtualPad.buttonA.justPressed #end)
         {
 			Init.SwitchToPrimaryMenu(WeeklyMainMenuState);
             FlxG.sound.playMusic(Paths.music(KUTValueHandler.getMenuMusic()));

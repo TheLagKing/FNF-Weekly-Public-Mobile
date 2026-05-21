@@ -146,7 +146,7 @@ function onCreatePost()
     timeTxt.y = -999;
     game.scoreAllowedToBop = false;
     // Everything beside this point is Brawh.
-    game.scoreTxt.font = Paths.font('pvz.ttf');
+    game.scoreTxt.font = Paths.font('pvz.TTF');
     game.scoreTxt.color = 0xFFD7C26A;
     game.scoreTxt.borderSize = 2;
     game.scoreTxt.alignment = FlxTextAlign.RIGHT;

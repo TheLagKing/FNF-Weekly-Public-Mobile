@@ -2,7 +2,7 @@ var newBar:Bar;
 var songPercent:Float = 0;
 
 function onCreatePost(){
-   newBar = new Bar(1006, 125,'mithrix/rortimeBarBG', function() return songPercent, 0, 1);
+   newBar = new Bar(1006, 125,'mithrix/rortimebarBG', function() return songPercent, 0, 1);
    newBar.rightBar.loadGraphic(Paths.image('mithrix/rortimebar'));
    newBar.leftBar.loadGraphic(Paths.image('mithrix/rortimeBar'));
    newBar.setColors(FlxColor.fromRGB(255, 255, 255), FlxColor.fromRGB(0, 0, 0));

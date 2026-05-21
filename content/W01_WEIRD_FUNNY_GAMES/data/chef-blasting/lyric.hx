@@ -3,7 +3,7 @@ var text:FlxText;
 function onCreatePost() {
     text = new FlxText();
     text.cameras = [game.camHUD];
-    text.setFormat(Paths.font("PAPYRUS.ttf"), 48, 0xFFcfa92d, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF000000);
+    text.setFormat(Paths.font("PAPYRUS.TTF"), 48, 0xFFcfa92d, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF000000);
     text.text = '';
     text.color = 0xFFFFFFFF;
     text.antialiasing = true;

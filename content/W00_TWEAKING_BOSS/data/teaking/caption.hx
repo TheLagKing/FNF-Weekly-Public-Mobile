@@ -3,7 +3,7 @@ var text:FlxText;
 function onCreatePost() {
     text = new FlxText(1280, 100);
     text.cameras = [PlayState.instance.camHUD];
-    text.setFormat(Paths.font("BRLNSDB.ttf"), 50, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF000000);
+    text.setFormat(Paths.font("BRLNSDB.TTF"), 50, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, 0xFF000000);
     text.text = '';
     text.color = 0xFFFFFFFF;
     text.width = 100;

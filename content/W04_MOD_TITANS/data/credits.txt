@@ -1,5 +1,5 @@
 TWEAK 4 - MOD TITANS
-Dollie::dollie::Composer of "Plectrum", "Plectrum" Background, Zardy Sprite/Icons, "Parched" Background, Animated Minus GF::https://x.com/panchonatorr::0xFFFFAF64
+Dollie::Dollie::Composer of "Plectrum", "Plectrum" Background, Zardy Sprite/Icons, "Parched" Background, Animated Minus GF::https://x.com/panchonatorr::0xFFFFAF64
 Jam::Jam::Sunday Sprites/Icons::https://x.com/vibbripple::0xFFFFAF64
 Srife5::Srife5::Charter of "Plectrum", Programmer of "Philly Mice"::https://x.com/strife55::0xFFFFAF64
 Lethrial::Lethrial::Programmer of "Plectrum"::https://x.com/lethrial::0xFFFFAF64

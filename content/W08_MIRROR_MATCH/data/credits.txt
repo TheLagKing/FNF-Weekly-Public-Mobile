@@ -1,7 +1,7 @@
 TWEAK 8 - MIRROR MATCH
 scrumbo_::Scrumbo::Composer of "Dangerous to Go Alone" with Cloverderus::https://x.com/scrumbo_::0xFFFFAF64
 OrbyyOrbinaut::Orbyy::Oni Takuro & Hroshi Sprites, "Dangerous to Go Alone" Background, Programmer of "Dangerous to Go Alone", "SIMUL4CRUM" with Lethrial & "Frauduccine"::https://x.com/OrbyyNew::0xFFFFAF64
-ThatGoofyGuy::Tgg::Normal Takuro Sprite::https://x.com/TGGtheStickBoy::0xFFFFAF64
+ThatGoofyGuy::tgg::Normal Takuro Sprite::https://x.com/TGGtheStickBoy::0xFFFFAF64
 KloogyBaboogy::KloogyBaboogy::Voice of Takuro::https://x.com/kloogybaboogy::0xFFFFAF64
 Cloverderus::Clover::Composer & Charter of "Frauduccine" with theWAHbox, Composer & Charter of "Dangerous to Go Alone" with scrumbo_::https://x.com/Cloverderus::0xFFFFAF64
 theWAHbox::Wahbox::Composer of "Frauduccine" with Cloverderus::https://x.com/thewahbox::0xFFFFAF64
@@ -10,7 +10,7 @@ Dollie::Dollie::Fake Peppino & Speaker Fake Peppino Sprites, Slosher/Brella/Blas
 Jam::Jam::Peppino & Fake Peppino Icons::https://x.com/vibbripple::0xFFFFAF64
 lemlem_mew::Lemlem_mew::"Frauduccine" Background, Charter of "SIMUL4CRUM" & "Rock Bottom" with Srife5::https://x.com/lemlem_mew::0xFFFFAF64
 Crossknife::Crossknife::Programmer of "Frauduccine"::https://x.com/crossknife::0xFFFFAF64
-maddiesmiles::MaddieSmiles::Composer of "Circus (Weekly Mix)" with Lethrial::https://x.com/maddiesmiles_::0xFFFFAF64
+maddiesmiles::Maddiesmiles::Composer of "Circus (Weekly Mix)" with Lethrial::https://x.com/maddiesmiles_::0xFFFFAF64
 Lethrial::Lethrial::Composer, Charter & Programmer of "Circus (Weekly Mix)" with maddiesmiles, Programmer of "SIMUL4CRUM" with OrbyyOrbinaut::https://x.com/lethrial::0xFFFFAF64
 DerpDrawz::DrawzDerp::All Visuals of "Circus (Weekly Mix)", "Rock Bottom" Background, Peppino Sprite with MochaDrawss::https://x.com/derpdrawz4541::0xFFFFAF64
 Biddle3::Biddle3::Composer of "Rock Bottom"::https://x.com/thedawg3_::0xFFFFAF64

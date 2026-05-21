@@ -12,5 +12,5 @@ Lethrial::Lethrial::Programmer & Charter of "Spaceblasterz"::https://x.com/lethr
 KatAnims::KatAnims::Composer of "Crimson Fog", Animated Hank Sprites::https://x.com/KatAnims::0xFFFFAF64
 Ito Saihara::ItoSaihara::Hank Sprite/Icons::https://x.com/ItoSaihara_::0xFFFFAF64
 Kye_VL::KyeVL::Charter of "Crimson Fog", Voice of Hank::https://x.com/Kye_VL::0xFFFFAF64
-Dollie::dollie::"Mental Temple" & "Crimson Fog" Backgrounds, Hank & Pico cutouts, Helicopter Cameo in "Spaceblasterz"::https://x.com/panchonatorr::0xFFFFAF64
+Dollie::Dollie::"Mental Temple" & "Crimson Fog" Backgrounds, Hank & Pico cutouts, Helicopter Cameo in "Spaceblasterz"::https://x.com/panchonatorr::0xFFFFAF64
 OrbyyOrbinaut::Orbyy::Programmer of "Mental Temple" & "Crimson Fog"::https://x.com/OrbyyNew::0xFFFFAF64

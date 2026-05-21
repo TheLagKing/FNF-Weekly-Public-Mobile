@@ -42,12 +42,10 @@ class PauseButton
         manager.pauseButton.scrollFactor.set();
         manager.pauseButton.alpha = 0.7;
         manager.pauseButton.scale.set(0.8, 0.8);
-        manager.pauseButton.updateHitbox();
-        
         manager.pauseButton.x = FlxG.width - manager.pauseButton.width - 25;
         manager.pauseButton.y = 25;
-        
         manager.pauseButton.cameras = [camera];
+        manager.pauseButton.updateHitbox();
         manager.onClickCallback = onClick;
         
         if (parent != null) 
@@ -104,6 +102,7 @@ class PauseButton
         {
             manager.pauseButton.x = FlxG.width - manager.pauseButton.width - 25;
             manager.pauseButton.y = 25;
+            manager.pauseButton.updateHitbox();
         }
         #end
     }

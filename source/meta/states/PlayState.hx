@@ -598,18 +598,19 @@ class PlayState extends MusicBeatState
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOverlay = new FlxCamera();
-		#if mobile camPause = new FlxCamera(); #end
 		camOther = new FlxCamera();
+		#if mobile camPause = new FlxCamera(); #end
+
 		camOverlay.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
-		#if mobile camPause.bgColor.alpha = 0; #end
 		camOther.bgColor.alpha = 0;
+		#if mobile camPause.bgColor.alpha = 0; #end
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD,false);
 		FlxG.cameras.add(camOverlay,false);
-		#if mobile FlxG.cameras.add(camPause, false); #end
 		FlxG.cameras.add(camOther,false);
+		#if mobile FlxG.cameras.add(camPause, false); #end
 		setOnScripts('camGame', camGame);
 		setOnScripts('camHUD', camHUD);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
@@ -1432,9 +1433,6 @@ class PlayState extends MusicBeatState
 		bottomBar.cameras = [camOther];
 		
 		#if mobile
-		addMobileControls(false);
-		hitbox.visible = false;
-		
 		if (ClientPrefs.PauseButton)
 		{
 			mobile.backend.PauseButton.showPauseButtonOnCamera(camPause, null, function()
@@ -2100,6 +2098,13 @@ class PlayState extends MusicBeatState
 		#end
 
 		inCutscene = false;
+
+		#if mobile
+		if (hitbox == null) {
+			addMobileControls(false);
+			hitbox.visible = false;
+		}
+		#end
 
 		// //makes it so the camera immediately starts at the player instead of at 0,0
 		// camFollowPos.setPosition(camFollow.x, camFollow.y);

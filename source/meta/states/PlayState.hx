@@ -1440,7 +1440,7 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			});
 			add(pauseButton);
-			pauseButton.cameras = [camPaused];
+			pauseButton.cameras = [camPause];
 		}
 		#end
 

@@ -88,18 +88,14 @@ class MarathonOverSubstate extends MusicBeatSubstate
 		add(camFollowPos);
 
         FlxG.camera.follow(camFollowPos, LOCKON, 1);
-        
-        #if mobile
-		addVirtualPad(NONE, A);
-		addVirtualPadCamera();
-		#end
+
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		if (controls.BACK || controls.ACCEPT)
+		if (controls.BACK || controls.ACCEPT || FlxG.mouse.justPressed)
 		{
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;

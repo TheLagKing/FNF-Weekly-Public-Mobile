@@ -1435,10 +1435,12 @@ class PlayState extends MusicBeatState
 		#if mobile
 		if (ClientPrefs.PauseButton)
 		{
-			mobile.backend.PauseButton.showPauseButtonOnCamera(camPause, null, function()
+			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
 			{
 				openPauseMenu();
 			});
+			add(pauseButton);
+			pauseButton.cameras = [camPaused];
 		}
 		#end
 
@@ -3271,9 +3273,6 @@ class PlayState extends MusicBeatState
 		setOnHScripts('curStep', curStep);
 		setOnHScripts('curBeat', curBeat);
 
-		#if mobile if (ClientPrefs.PauseButton) mobile.backend.PauseButton.update(); #end
-
-
 		// if(botplayTxt.visible) {
 		// 	botplaySine += 180 * elapsed;
 		// 	botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
@@ -4434,10 +4433,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
-		#if mobile 
-		hitbox.visible = false;
-		if (ClientPrefs.PauseButton) mobile.backend.PauseButton.hidePauseButton();
-		#end
+		#if mobile hitbox.visible = false; #end
 
 		deathCounter = 0;
 		seenCutscene = false;

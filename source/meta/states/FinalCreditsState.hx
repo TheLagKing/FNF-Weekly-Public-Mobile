@@ -37,7 +37,7 @@ class FinalCreditsState extends MusicBeatState
         #if mobile
 		addVirtualPad(NONE, A);
 		addVirtualPadCamera();
-		virtualPad.alpha = 0.4;
+		virtualPad.alpha = 0.2;
 		#end
 
         new FlxTimer().start(170.5, function(tmr:FlxTimer)

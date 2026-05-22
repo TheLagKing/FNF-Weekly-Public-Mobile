@@ -87,7 +87,7 @@ class MarathonWinState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (controls.BACK || controls.ACCEPT)
+		if (controls.BACK || controls.ACCEPT || FlxG.mouse.justPressed)
 		{
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;

@@ -143,16 +143,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
+		if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P)
+		if (controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end)
 		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) {
 			close();
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
@@ -167,7 +167,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 			if(usesCheckbox)
 			{
-				if(controls.ACCEPT)
+				if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 				{
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					curOption.setValue((curOption.getValue() == true) ? false : true);
@@ -175,16 +175,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					reloadCheckboxes();
 				}
 			}else if(curOption.type == 'button'){
-				if(controls.ACCEPT)
+				if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 					curOption.callback();
 			} else if(curOption.type != 'label') {
-				if(controls.UI_LEFT || controls.UI_RIGHT) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
+				if(controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) {
+					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
 							var add:Dynamic = null;
 							if(curOption.type != 'string') {
-								add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
+								add = controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end? -curOption.changeValue : curOption.changeValue;
 							}
 
 							switch(curOption.type)
@@ -207,7 +207,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 								case 'string':
 									var num:Int = curOption.curOption; //lol
-									if(controls.UI_LEFT_P) --num;
+									if(controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end) --num;
 									else num++;
 
 									if(num < 0) {
@@ -244,7 +244,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					if(curOption.type != 'string') {
 						holdTime += elapsed;
 					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonRight.justReleased #end) {
 					clearHold();
 				}
 			}

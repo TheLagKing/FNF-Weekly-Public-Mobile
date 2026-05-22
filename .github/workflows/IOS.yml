@@ -4,17 +4,20 @@ on: workflow_dispatch
 
 jobs:
   build:
-    name: iOS Build
-    permissions: write-all
-    runs-on: macos-15
+    name: Build iOS
+    runs-on: macos-14
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+        uses: krdlab/setup-haxe@v2.0.2
         with:
-          haxe-version: 4.3.2
+          haxe-version: 4.3.7
           
       - name: Install Libraries
         run: |
@@ -41,14 +44,17 @@ jobs:
       - name: Making ipa file
         run: |
           brew install ldid
-          cd export/release/ios/build/Release-iphoneos/FNFWEEKLYIOS.app
-          ldid -S../../../FNFWEEKLYIOS/FNFWEEKLYIOS.entitlements FNFWEEKLYIOS
-          cd ..
+
+          cd export/release/ios/build/Release-iphoneos
+
+          ldid -S FNFWEEKLY.app/FNFWEEKLY
+
           mkdir Payload
-          mv FNFWEEKLYIOS.app Payload
-          zip -r FNFWEEKLYIOS.ipa Payload
+          mv FNFWEEKLY.app Payload
+          zip -r FNFWEEKLY.ipa Payload
+          
       - name: Upload Artifact
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v4
         with:
           name: FNF WEEKLY iOS
           path: export/release/ios/build/Release-iphoneos/*.ipa

@@ -7,6 +7,7 @@ import openfl.utils.ByteArray;
 import haxe.io.Path;
 import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
+import flixel.addons.util.FlxAsyncLoop;
 import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
@@ -67,19 +68,14 @@ class CopyState extends MusicBeatState
 		loadedText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		add(loadedText);
 
-		thread = new ThreadPool(0, CoolUtil.getCPUThreadsCount());
-		thread.doWork.add(function(poop)
-		{
-			for (file in locatedFiles)
+		new FlxAsyncLoop(maxLoopTimes, function()
 			{
-				loopTimes++;
-				copyAsset(file);
-			}
-		});
-		new FlxTimer().start(0.5, (tmr) ->
-		{
-			thread.queue({});
-		});
+				if(loopTimes < locatedFiles.length)
+				{
+					copyAsset(locatedFiles[loopTimes]);
+					loopTimes++;
+					}
+			}, 15).start();
 
 		super.create();
 		copyTweakfile();

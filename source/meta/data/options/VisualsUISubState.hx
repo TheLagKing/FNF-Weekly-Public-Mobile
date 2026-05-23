@@ -69,6 +69,23 @@ class VisualsUISubState extends BaseOptionsMenu
 			'Time Left',
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
+		
+		var option:Option = new Option('Allow Phone Screensaver',
+		    'If checked, the phone will sleep after going inactive for few seconds.',
+		    'screensaver', 
+		    'bool',
+		    true);
+		option.onChange = () -> lime.system.System.allowScreenTimeout = curOption.getValue(); 
+		addOption(option);
+		
+		#if !ios
+		var option:Option = new Option('Pause Button',
+		    'If unchecked, the pause button will be hidden during gameplay.',
+		    'PauseButton', 
+		    'bool',
+		    true);
+		addOption(option);
+		#end
 
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",

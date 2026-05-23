@@ -92,6 +92,10 @@ class NotesSubState extends MusicBeatSubstate
 		hsbText.x = posX + 240;
 		add(hsbText);
 
+		#if mobile
+		addVirtualPad(LEFT_FULL, A_B_R);
+		#end
+
 		changeSelection();
 	}
 
@@ -99,19 +103,19 @@ class NotesSubState extends MusicBeatSubstate
 	override function update(elapsed:Float) {
 		if(changingNote) {
 			if(holdTime < 0.5) {
-				if(controls.UI_LEFT_P) {
+				if(controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end) {
 					updateValue(-1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.UI_RIGHT_P) {
+				} else if(controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end) {
 					updateValue(1);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				} else if(controls.RESET) {
+				} else if(controls.RESET #if mobile || virtualPad.buttonR.justPressed #end) {
 					resetValue(curSelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				if(controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonRight.justReleased #end) {
 					holdTime = 0;
-				} else if(controls.UI_LEFT || controls.UI_RIGHT) {
+				} else if(controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end) {
 					holdTime += elapsed;
 				}
 			} else {
@@ -119,40 +123,40 @@ class NotesSubState extends MusicBeatSubstate
 				switch(typeSelected) {
 					case 1 | 2: add = 50;
 				}
-				if(controls.UI_LEFT) {
+				if(controls.UI_LEFT #if mobile || virtualPad.buttonLeft.justPressed #end) {
 					updateValue(elapsed * -add);
-				} else if(controls.UI_RIGHT) {
+				} else if(controls.UI_RIGHT #if mobile || virtualPad.buttonRight.justPressed #end) {
 					updateValue(elapsed * add);
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
+				if(controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonRight.justReleased #end) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					holdTime = 0;
 				}
 			}
 		} else {
-			if (controls.UI_UP_P) {
+			if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end) {
 				changeSelection(-1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if (controls.UI_DOWN_P) {
+			if (controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end) {
 				changeSelection(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if (controls.UI_LEFT_P) {
+			if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end) {
 				changeType(-1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if (controls.UI_RIGHT_P) {
+			if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end) {
 				changeType(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if(controls.RESET) {
+			if(controls.RESET #if mobile || virtualPad.buttonR.justPressed #end) {
 				for (i in 0...3) {
 					resetValue(curSelected, i);
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
-			if (controls.ACCEPT && nextAccept <= 0) {
+			if (controls.ACCEPT  #if mobile || virtualPad.buttonA.justPressed #end && nextAccept <= 0) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changingNote = true;
 				holdTime = 0;
@@ -175,7 +179,7 @@ class NotesSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (controls.BACK || (changingNote && controls.ACCEPT)) {
+		if (controls.BACK  #if mobile || virtualPad.buttonB.justPressed #end || (changingNote && controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)) {
 			if(!changingNote) {
 				close();
 			} else {

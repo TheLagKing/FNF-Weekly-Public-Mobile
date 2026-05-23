@@ -48,6 +48,11 @@ class MarathonButtonsSubstate extends MusicBeatSubstate
 		noText.x += 200;
 		add(noText);
 		updateOptions();
+		
+		#if mobile
+		addVirtualPad(LEFT_RIGHT, A_B);
+		addVirtualPadCamera();
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -60,15 +65,15 @@ class MarathonButtonsSubstate extends MusicBeatSubstate
 			spr.alpha += elapsed * 2.5;
 		}
 
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+		if(controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) {
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onYes = !onYes;
 			updateOptions();
 		}
-		if(controls.BACK) {
+		if(controls.BACK #if mobile || virtualPad.buttonB.justPressed #end) {
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
 			close();
-		} else if(controls.ACCEPT) {
+		} else if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end) {
 			if(onYes) {
 				Highscore.resetMarathon();
 			}

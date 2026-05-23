@@ -204,21 +204,20 @@ class FreeplayState extends MusicBeatState
 		add(textBG);
 
 		#if PRELOAD_ALL
-		var leText:String = "Press P to listen to the Song / Press C to open the Gameplay Changers Menu / Press R to Reset your Score and Accuracy.";
+		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
 		var size:Int = 16;
 		#else
-		var leText:String = "Press C to open the Gameplay Changers Menu / Press R to Reset your Score and Accuracy.";
+		var leText:String = "Press C to open the Gameplay Changers Menu / Press X to Reset your Score and Accuracy.";
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
-		
-		super.create();
 		#if mobile
 		addVirtualPad(LEFT_FULL, FREEPLAY);
 		#end
+		super.create();
 	}
 
 	override function closeSubState() {
@@ -227,8 +226,10 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 		#if mobile
 		removeVirtualPad();
-		addVirtualPad(LEFT_FULL, FREEPLAY);
+        addVirtualPad(LEFT_FULL, FREEPLAY);
 		#end
+
+		
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
@@ -290,11 +291,11 @@ class FreeplayState extends MusicBeatState
 		var leftP = controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end;
 		var rightP = controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end;
 		var accepted = controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end;
-		var space = FlxG.keys.justPressed.SPACE #if mobile || virtualPad.buttonP.justPressed #end;
+		var space = FlxG.keys.justPressed.SPACE;
 		var ctrl = FlxG.keys.justPressed.CONTROL #if mobile || virtualPad.buttonC.justPressed #end;
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.pressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.justPressed #end) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -332,14 +333,14 @@ class FreeplayState extends MusicBeatState
 
 			if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 			{
-				changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP #if mobile || virtualPad.buttonUp.pressed #end ? -shiftMult : shiftMult));
+				changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP #if mobile || virtualPad.buttonUp.justPressed #end ? -shiftMult : shiftMult));
 				changeDiff();
 			}
 		}
 
-		if (controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end)
+		if (controls.UI_LEFT_P)
 			changeDiff(-1);
-		else if (controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end)
+		else if (controls.UI_RIGHT_P)
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
@@ -357,7 +358,9 @@ class FreeplayState extends MusicBeatState
 		if(ctrl)
 		{
 			persistentUpdate = false;
-			#if mobile removeVirtualPad(); #end
+			#if mobile
+			removeVirtualPad();
+			#end
 			openSubState(new GameplayChangersSubstate());
 		}
 		else if(space)
@@ -411,7 +414,7 @@ class FreeplayState extends MusicBeatState
 				colorTween.cancel();
 			}
 			
-			if (FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.pressed #end){
+			if (FlxG.keys.pressed.SHIFT){
 				LoadingState.loadAndSwitchState(new ChartingState());
 			}else{
 				LoadingState.loadAndSwitchState(new PlayState());

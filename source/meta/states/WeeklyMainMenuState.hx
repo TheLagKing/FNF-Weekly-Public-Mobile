@@ -310,6 +310,7 @@ class WeeklyMainMenuState extends MusicBeatState
 		add(seedTxt);
 
 		seedInput = new FlxUIInputText(seedTxt.x, 671, 100, "");
+		seedInput.focusGained = () -> FlxG.stage.window.textInputEnabled = true;
 		add(seedInput);
 
 		optionGrp.members[3].x = 60; //left arrow

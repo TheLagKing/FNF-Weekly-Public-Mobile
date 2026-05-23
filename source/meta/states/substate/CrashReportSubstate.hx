@@ -42,7 +42,7 @@ class CrashReportSubstate extends FlxState {
 		coolText.color = flixel.util.FlxColor.RED;
 		add(coolText);
 
-		var formattedErrorMessage:String = 'Your game has crashed! \nError caught: ${errorName}\n\n${error}\n\nPlease report this error to duskiewhy on discord (if unmodified hit single use)';
+		var formattedErrorMessage:String = 'Your game has crashed! \nError caught: ${errorName}\n\n${error}\n\nPlease report this error to duskiewhy on discord (if unmodified hit single use)\nIf Android Port, contact Heropowerbrine on Discord';
 
 		var report:FlxText = new FlxText(0, 0, FlxG.width / 1.5, formattedErrorMessage);
 		report.setFormat(Paths.font('vcr.ttf'), 32, 0xFFFFFFFF, CENTER, OUTLINE, 0xFF000000);
@@ -50,7 +50,7 @@ class CrashReportSubstate extends FlxState {
 		report.borderSize = 1.5;
 		add(report);
 
-		underText = new FlxText(0, FlxG.height - 64, FlxG.width, "Press SPACE to return to the Menu Screen.");
+		underText = new FlxText(0, FlxG.height - 64, FlxG.width, "Press to return to the Menu Screen.");
 		underText.setFormat(Paths.font('vcr.ttf'), 24, 0xFFFFFFFF, CENTER, OUTLINE, 0xFF000000);
 		underText.y = FlxG.height - underText.height - 16;
 		underText.borderSize = 1;
@@ -63,9 +63,17 @@ class CrashReportSubstate extends FlxState {
     }
 
 	override function update(elapsed:Float):Void {
+		var justTouched:Bool = false;
+
+		#if mobile
+                for (touch in FlxG.touches.list)
+	                if (touch.justPressed)
+		                justTouched = true;
+		#end
+			
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.SPACE){
+		if (FlxG.keys.justPressed.SPACE #if mobile || justTouched #end){
 			Init.SwitchToPrimaryMenu();
         }
 	}

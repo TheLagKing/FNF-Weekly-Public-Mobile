@@ -42,7 +42,7 @@ class CrashReportSubstate extends FlxState {
 		coolText.color = flixel.util.FlxColor.RED;
 		add(coolText);
 
-		var formattedErrorMessage:String = 'Your game has crashed! \nError caught: ${errorName}\n\n${error}\n\nPlease report this error to duskiewhy on discord (if unmodified hit single use)\nIf Android Port, contact Heropowerbrine on Discord';
+		var formattedErrorMessage:String = 'Your game has crashed! \nError caught: ${errorName}\n\n${error}\n\nPlease report this error to duskiewhy on discord (if unmodified hit single use)\nIf Mobile Port, contact TheLagKing on Discord';
 
 		var report:FlxText = new FlxText(0, 0, FlxG.width / 1.5, formattedErrorMessage);
 		report.setFormat(Paths.font('vcr.ttf'), 32, 0xFFFFFFFF, CENTER, OUTLINE, 0xFF000000);

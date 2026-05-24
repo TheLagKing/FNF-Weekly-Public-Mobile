@@ -68,14 +68,13 @@ class CopyState extends MusicBeatState
 		loadedText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		add(loadedText);
 
-		new FlxAsyncLoop(maxLoopTimes, function()
-			{
-				if(loopTimes < locatedFiles.length)
-				{
-					copyAsset(locatedFiles[loopTimes]);
-					loopTimes++;
-					}
-			}, 15).start();
+		var ticks:Int = 15;
+		if (maxLoopTimes <= 15)
+			ticks = 1;
+
+		copyLoop = new FlxAsyncLoop(maxLoopTimes, copyAsset, ticks);
+		add(copyLoop);
+		copyLoop.start();
 
 		super.create();
 		copyTweakfile();
@@ -167,7 +166,7 @@ class CopyState extends MusicBeatState
 	{
 		switch (Path.extension(file).toLowerCase())
 		{
-			case 'otf' | 'ttf':
+			case 'otf' | 'ttf' | 'TTF':
 				return ByteArray.fromFile(file);
 			default:
 				return OpenFLAssets.getBytes(file);
@@ -218,6 +217,8 @@ class CopyState extends MusicBeatState
 				}
 			}
 		}
+
+		filesToRemove.push("content/modsList.txt");
 
 		locatedFiles = locatedFiles.filter(file -> !filesToRemove.contains(file));
 

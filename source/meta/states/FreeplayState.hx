@@ -207,7 +207,7 @@ class FreeplayState extends MusicBeatState
 		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
 		var size:Int = 16;
 		#else
-		var leText:String = "Press C to open the Gameplay Changers Menu / Press R to Reset your Score and Accuracy.";
+		var leText:String = "Press C to open the Gameplay Changers Menu / Press X to Reset your Score and Accuracy.";
 		var size:Int = 18;
 		#end
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
@@ -215,7 +215,7 @@ class FreeplayState extends MusicBeatState
 		text.scrollFactor.set();
 		add(text);
 		#if mobile
-		addVirtualPad(LEFT_FULL, FREEPLAY);
+		addVirtualPad(FULL,A_B_C_X);
 		#end
 		super.create();
 	}
@@ -226,7 +226,7 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 		#if mobile
 		removeVirtualPad();
-        addVirtualPad(LEFT_FULL, FREEPLAY);
+                addVirtualPad(FULL,A_B_C_X);
 		#end
 
 		
@@ -286,16 +286,16 @@ class FreeplayState extends MusicBeatState
 		}
 		weekText.x = 5;
 
-		var upP = controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end;
-		var downP = controls.UI_DOWN_P #if mobile || virtualPad.buttonDown.justPressed #end;
-		var leftP = controls.UI_LEFT_P #if mobile || virtualPad.buttonLeft.justPressed #end;
-		var rightP = controls.UI_RIGHT_P #if mobile || virtualPad.buttonRight.justPressed #end;
-		var accepted = controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end;
+		var upP = controls.UI_UP_P #if mobile || _virtualpad.buttonUp.justPressed #end;
+		var downP = controls.UI_DOWN_P #if mobile || _virtualpad.buttonDown.justPressed #end;
+		var leftP = controls.UI_LEFT_P #if mobile || _virtualpad.buttonLeft.justPressed #end;
+		var rightP = controls.UI_RIGHT_P #if mobile || _virtualpad.buttonRight.justPressed #end;
+		var accepted = controls.ACCEPT #if mobile || _virtualpad.buttonA.justPressed #end;
 		var space = FlxG.keys.justPressed.SPACE;
-		var ctrl = FlxG.keys.justPressed.CONTROL #if mobile || virtualPad.buttonC.justPressed #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL #if mobile || _virtualpad.buttonC.justPressed #end;
 
 		var shiftMult:Int = 1;
-		if(FlxG.keys.pressed.SHIFT #if mobile || virtualPad.buttonS.pressed #end) shiftMult = 3;
+		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
 		if(songs.length > 1)
 		{
@@ -325,7 +325,7 @@ class FreeplayState extends MusicBeatState
 			changeWeek(-1);
 		}
 
-		if(controls.UI_DOWN || controls.UI_UP #if mobile || virtualPad.buttonDown.pressed || virtualPad.buttonUp.pressed #end)
+		if(controls.UI_DOWN || controls.UI_UP #if mobile || _virtualpad.buttonDown.pressed || _virtualpad.buttonUp.pressed #end)
 		{
 			var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 			holdTime += elapsed;
@@ -333,7 +333,7 @@ class FreeplayState extends MusicBeatState
 
 			if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 			{
-				changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP #if mobile || virtualPad.buttonUp.justPressed #end ? -shiftMult : shiftMult));
+				changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP #if mobile || _virtualpad.buttonUp.justPressed #end ? -shiftMult : shiftMult));
 				changeDiff();
 			}
 		}
@@ -344,7 +344,7 @@ class FreeplayState extends MusicBeatState
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
+		if (controls.BACK #if mobile || _virtualpad.buttonB.justPressed #end)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
@@ -424,7 +424,7 @@ class FreeplayState extends MusicBeatState
 					
 			destroyFreeplayVocals();
 		}
-		else if(controls.RESET #if mobile || virtualPad.buttonR.justPressed #end)
+		else if(controls.RESET #if mobile || _virtualpad.buttonX.justPressed #end)
 		{
 			persistentUpdate = false;
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));

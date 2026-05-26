@@ -206,7 +206,7 @@ class CreditsState extends MusicBeatState
 					holdTime = 0;
 				}
 
-				if(controls.UI_DOWN || controls.UI_UP #if mobile || virtualPad.buttonDown.justPressed || virtualPad.buttonUp.justPressed #end)
+				if(controls.UI_DOWN || controls.UI_UP #if mobile || virtualPad.buttonDown.pressed || virtualPad.buttonUp.pressed #end)
 				{
 					var checkLastHold:Int = Math.floor((holdTime - 0.5) * 10);
 					holdTime += elapsed;
@@ -214,7 +214,7 @@ class CreditsState extends MusicBeatState
 
 					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
 					{
-						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
+						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP #if mobile || virtualPad.buttonUp.pressed #end ? -shiftMult : shiftMult));
 					}
 				}
 			}

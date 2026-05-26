@@ -1429,21 +1429,6 @@ class PlayState extends MusicBeatState
 		topBar.cameras = [camOther];
 		bottomBar.cameras = [camOther];
 		
-		#if mobile
-		addMobileControls(false);
-		hitbox.visible = false;
-
-		if (ClientPrefs.PauseButton)
-		{
-			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
-			{
-				openPauseMenu();
-			});
-			add(pauseButton);
-			pauseButton.cameras = [camOther];
-		}
-		#end
-
 		setOnScripts('playFields', playFields);
 		setOnScripts('grpNoteSplashes', grpNoteSplashes);
 		setOnScripts('notes', notes);
@@ -1627,6 +1612,21 @@ class PlayState extends MusicBeatState
 		Conductor.safeZoneOffset = (ClientPrefs.safeFrames / 60) * 1000;
 		callOnScripts('onCreatePost', []);
 		setOnScripts('members', members);
+
+		#if mobile
+		addMobileControls(false);
+		hitbox.visible = false;
+
+		if (ClientPrefs.PauseButton)
+		{
+			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
+			{
+				openPauseMenu();
+			});
+			add(pauseButton);
+			pauseButton.cameras = [camOther];
+		}
+		#end
 
 		super.create();
 

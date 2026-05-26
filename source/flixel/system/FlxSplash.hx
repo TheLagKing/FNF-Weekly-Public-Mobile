@@ -13,7 +13,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import hxcodec.flixel.FlxVideo as VideoPlayer;
 
 import meta.states.*;
 import meta.data.*;
@@ -39,7 +38,7 @@ class FlxSplash extends MusicBeatState
 	var _cachedTimestep:Bool;
 	var _cachedAutoPause:Bool;
 
-	var videoPlayer:VideoPlayer;
+	var video:FlxVideo;
 
 	override public function create():Void
 	{
@@ -58,14 +57,12 @@ class FlxSplash extends MusicBeatState
 		#end
 
 		new FlxTimer().start(1, function(tmr:FlxTimer){
-			videoPlayer = new VideoPlayer();
-			videoPlayer.play(Paths.video('intro'));
-			videoPlayer.onEndReached.add(function()
-			{
-				videoPlayer.dispose();
+			video = new FlxVideo();
+			video.load(Paths.video('intro'));
+			video.onEndReached.add(function() {
 				onComplete();
-				return;
-			}, true);
+			});
+			video.play();
 		});
 
 		// _times = [0.041, 0.184, 0.334, 0.495, 0.636];
@@ -104,17 +101,17 @@ class FlxSplash extends MusicBeatState
 	}
 
 	override function update(elapsed:Float) {
-                var justTouched:Bool = false;
+		var justTouched:Bool = false;
 
 		#if mobile
                 for (touch in FlxG.touches.list)
 	                if (touch.justPressed)
 		                justTouched = true;
 		#end
-
+		
 		if (FlxG.keys.justPressed.SPACE || FlxG.keys.justPressed.ENTER || justTouched) {
-			if (videoPlayer != null) {
-				videoPlayer.stop();
+			if (video != null) {
+				video.stop();
 				onComplete();
 			}
 
@@ -237,9 +234,9 @@ class FlxSplash extends MusicBeatState
 		#end
 		// FlxG.stage.removeChild(_sprite);
 		// FlxG.stage.removeChild(_text);
-                if (videoPlayer != null) {
-		videoPlayer.dispose();
-		}
+		if (video != null)
+			video.dispose();
+		
 		FlxG.switchState(Type.createInstance(nextState, []));
 		FlxG.game._gameJustStarted = true;
 	}

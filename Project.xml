@@ -123,7 +123,7 @@
 
 	<!--Avoid memory leaks with for loops in HScript-->
 	<haxedef name="loop_unroll_max_cost" value="25" />
-	<haxedef name="DISABLED_MACRO_SUPERLATIVE" if="mobile" />
+	<haxedef name="DISABLED_MACRO_SUPERLATIVE" if="android" />
 
 	<haxedef name="no-deprecation-warnings"/>
 	<!-- <haxelib name="markdown" /> -->
@@ -135,7 +135,17 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 		
 	<section if="android">
+		<config:android permission="android.permission.VIBRATE" />
+		<config:android permission="android.permission.INTERNET" />
+		<config:android permission="android.permission.ACCESS_WIFI_STATE"/>
+		<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
+		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
 		<certificate path="weekly-key.keystore" password="weeklyteam" alias="fckingweeklyidfk" alias-password="weeklyteam" if="android" unless="debug" />
+	</section>
+
+	<section if="ios">
+		<config:ios category_type="public.app-category.music-games" />
+		<config:mac category_type="public.app-category.music-games" />
 	</section>
 
 	<!--Enable the Flixel core recording system-->
@@ -165,6 +175,11 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+
+		
+	<!-- Basic Support For Kizzy -->
+	<java path="source/mobile/android/" if="android" />
+	<java path="mobile/android/" if="android" />
 	
 	<icon path="projFiles/icon/icon16.png" size='16'/>
 	<icon path="projFiles/icon/icon32.png" size='32'/>

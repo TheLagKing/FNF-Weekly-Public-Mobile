@@ -121,9 +121,11 @@ class MobileVirtualPad extends FlxMobileInputManager
 				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
 				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
 			case FREEPLAY:
-				buttonR = add(createButton(screenW - 510, screenH - 135, 'r', 0xFF7D00, [R]));
+				buttonR = add(createButton(screenW - 384, screenH - 255, 'r', 0xFF7D00, [R]));
 				buttonC = add(createButton(screenW - 384, screenH - 135, 'c', 0x44FF00, [C]));
+				buttonP = add(createButton(screenW - 258, screenH - 255, 'p', 0x4A35B9, [P]));
 				buttonB = add(createButton(screenW - 258, screenH - 135, 'b', 0xFFCB00, [B]));
+				buttonS = add(createButton(screenW - 132, screenH - 255, 's', 0x99062D, [S]));
 				buttonA = add(createButton(screenW - 132, screenH - 135, 'a', 0xFF0000, [A]));
             case CHART_EDITOR:
 				buttonV = add(createButton(screenW - 510, screenH - 255, 'v', 0x49A9B2, [V]));

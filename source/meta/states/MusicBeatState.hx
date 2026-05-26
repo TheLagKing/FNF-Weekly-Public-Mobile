@@ -92,14 +92,26 @@ class MusicBeatState extends FlxUIState
 	public function addMobileControls(DefaultDrawTarget:Bool = false)
 	{
 		hitbox = new MobileHitbox();
-
+		
 		hitboxCam = new FlxCamera();
 		hitboxCam.bgColor.alpha = 0;
 		FlxG.cameras.add(hitboxCam, DefaultDrawTarget);
-
+		
 		hitbox.cameras = [hitboxCam];
 		hitbox.visible = false;
 		add(hitbox);
+		
+		for (hbox in hitbox.members)
+		{
+			hbox.scale.x = (FlxG.width / 4) / hbox.frameWidth;
+			hbox.scale.y = FlxG.height / hbox.frameHeight;
+			hbox.updateHitbox();
+		}
+		
+		for (i in 0...hitbox.length)
+		{
+			hitbox.members[i].x = hitbox.members[i].width * i;
+		}
 	}
 
 	public function removeMobileControls()

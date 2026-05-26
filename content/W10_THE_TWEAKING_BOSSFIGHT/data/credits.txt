@@ -17,7 +17,7 @@ Biddle3::Biddle3::Composer of "Tenkaichi Battleworld"::https://x.com/thedawg3_::
 Ito Saihara::ItoSaihara::Spider-Man T10 Sprites, "Tenkaichi Battleworld" Background, Intro Cutscene & Gameover, Voice of Spider-Man, Rolling Credits Doodles::https://x.com/ItoSaihara_::0xFFFFAF64
 TerminalRepo::TerminalRepo::"Tenkaichi Battleworld" Outro Cutscene, Voice of Goku::https://x.com/TerminalRepo::0xFFFFAF64
 Kye_VL::KyeVL::Charter of "Tenkaichi Battleworld", Voice of Hank::https://x.com/Kye_VL::0xFFFFAF64
-maddiesmiles::MaddieSmiles::Composer of "Friends And Fellas" with Cloverderus::https://x.com/maddiesmiles_::0xFFFFAF64
+maddiesmiles::Maddiesmiles::Composer of "Friends And Fellas" with Cloverderus::https://x.com/maddiesmiles_::0xFFFFAF64
 Cloverderus::Clover::Composer & Charter of "Friends And Fellas" with maddiesmiles::https://x.com/Cloverderus::0xFFFFAF64
 ultraspicyspray::ultra::Connan T10 / Nanoc / Connoc Sprites/Icons with PixelAves, Rolling Credits Doodles::https://x.com/ultraspicyspray::0xFFFFAF64
 PixelAves::Pixel::Conan T10 / Nanoc / Connoc Sprites with ultraspicyspray::https://x.com/PixelAves::0xFFFFAF64

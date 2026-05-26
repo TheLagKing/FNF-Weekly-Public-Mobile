@@ -30,6 +30,20 @@ class Paths
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
 
+	#if ASSET_REDIRECT
+	public static inline final trail = #if macos '../../../../../../../' #else '../../../../' #end;
+	#end
+	
+	/**
+	 * Primary asset directory
+	 */
+	public static inline final CORE_DIRECTORY = #if ASSET_REDIRECT trail + 'assets/game' #else 'assets' #end;
+	
+	/**
+	 * Mod directory
+	 */
+	public static inline final MODS_DIRECTORY = #if ASSET_REDIRECT trail + 'content' #else 'content' #end;
+
 	#if MODS_ALLOWED
 	public static var ignoreModFolders:Array<String> = [
 		'characters',
@@ -127,24 +141,28 @@ class Paths
 
 	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
 	{
-		if (library != null)
-			return getLibraryPath(file, library);
-
-		if (currentLevel != null)
+		if (parentFolder != null) file = '$parentFolder/$file';
+		
+		#if MODS_ALLOWED
+		if (checkMods)
 		{
-			var levelPath:String = '';
-			if(currentLevel != 'shared') {
-				levelPath = getLibraryPathForce(file, currentLevel);
-				if (OpenFlAssets.exists(levelPath, type))
-					return levelPath;
-			}
-
-			levelPath = getLibraryPathForce(file, "shared");
-			if (OpenFlAssets.exists(levelPath, type))
-				return levelPath;
+			final modPath:String = modFolders(file);
+			
+			if (FunkinAssets.exists(modPath) || FunkinAssets.isDirectory(modPath)) return modPath;
 		}
+		#end
+		
+		#if ASSET_REDIRECT
+		final embedPath = getCorePath().replace(CORE_DIRECTORY, trail + 'assets/embeds') + file;
+		if (FunkinAssets.exists(embedPath) || FunkinAssets.isDirectory(embedPath)) return embedPath;
+		#end
+		
+		return getCorePath(file);
+	}
 
-		return getPreloadPath(file);
+	public static inline function getCorePath(file:String = ''):String
+	{
+		return '$CORE_DIRECTORY/$file';
 	}
 
 	static public function getLibraryPath(file:String, library = "preload")
@@ -168,35 +186,38 @@ class Paths
 		return getPath(file, type, library);
 	}
 
-	inline static public function txt(key:String, ?library:String)
+	inline static public function txt(key:String, ?parentFolder:String, checkMods:Bool = true):String
 	{
-		return getPath('data/$key.txt', TEXT, library);
+		return getPath('data/$key.txt', parentFolder, checkMods);
 	}
 
-	inline static public function xml(key:String, ?library:String)
+	inline static public function xml(key:String, ?parentFolder:String, checkMods:Bool = true):String
 	{
-		return getPath('data/$key.xml', TEXT, library);
+		return getPath('data/$key.xml', parentFolder, checkMods);
 	}
 
-	inline static public function json(key:String, ?library:String)
+	inline static public function json(key:String, ?parentFolder:String, checkMods:Bool = true):String
 	{
-		return getPath('data/$key.json', TEXT, library);
+		return getPath('data/$key.json', parentFolder, checkMods);
 	}
-	inline static public function noteskin(key:String, ?library:String)
+	inline static public function noteskin(key:String, ?parentFolder:String, checkMods:Bool = true):String
 	{
-		return getPath('noteskins/$key', TEXT, library);
+		var path = getPath('data/noteskins/$key.json', parentFolder, checkMods);
+		if (!FunkinAssets.exists(path, TEXT)) path = getPath('noteskins/$key.json', parentFolder, checkMods);
+		
+		return path;
 	}
 	inline static public function modsNoteskin(key:String){
 		return modFolders('noteskins/$key');
 	}
 
-	inline static public function shaderFragment(key:String, ?library:String)
+	inline static public function shaderFragment(key:String, checkMods:Bool = true):String
 	{
-		return getPath('shaders/$key.frag', TEXT, library);
+		return getPath('shaders/$key.frag', null, checkMods);
 	}
-	inline static public function shaderVertex(key:String, ?library:String)
+	inline static public function shaderVertex(key:String, checkMods:Bool = true):String
 	{
-		return getPath('shaders/$key.vert', TEXT, library);
+		return getPath('shaders/$key.vert', null, checkMods);
 	}
 	inline static public function lua(key:String, ?library:String)
 	{
@@ -220,32 +241,28 @@ class Paths
 		return null;
 	}
 
-	static public function video(key:String)
+	static public function video(key:String, checkMods:Bool = true):String
 	{
-		#if MODS_ALLOWED
-		var file:String = modsVideo(key);
-		if(FileSystem.exists(file)) {
-			return file;
-		}
-		#end
-		return 'assets/videos/$key.$VIDEO_EXT';
+		return findFileWithExts('videos/$key', ['mp4', 'mov'], null, checkMods);
 	}
 
-	static public function sound(key:String, ?library:String):Sound
+	static public function sound(key:String, ?parentFolder:String, checkMods:Bool = true):Sound
 	{
-		var sound:Sound = returnSound('sounds', key, library);
-		return sound;
+		final key = findFileWithExts('sounds/$key', ['ogg', 'wav'], parentFolder, checkMods);
+		
+		return FunkinAssets.getSound(key);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
+	public static inline function soundRandom(key:String, min:Int = 0, max:Int = 0, ?parentFolder:String, checkMods:Bool = true):Sound
 	{
-		return sound(key + FlxG.random.int(min, max), library);
+		return sound(key + FlxG.random.int(min, max), parentFolder, checkMods);
 	}
 
-	inline static public function music(key:String, ?library:String):Sound
+	public static inline function music(key:String, ?parentFolder:String, checkMods:Bool = true):Sound
 	{
-		var file:Sound = returnSound('music', key, library);
-		return file;
+		final key = findFileWithExts('music/$key', ['ogg', 'wav'], parentFolder, checkMods);
+		
+		return FunkinAssets.getSound(key);
 	}
 
 	inline static public function voices(song:String):Null<openfl.media.Sound>

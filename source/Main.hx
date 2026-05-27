@@ -105,8 +105,6 @@ class Main extends Sprite
 		// #end
 		// #end
 
-		FlxSplash.nextState = Init;
-
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FNFGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 

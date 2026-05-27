@@ -25,12 +25,12 @@ class WeirdPaths
 		{
 			var levelPath = getLibraryPathForce(file, currentLevel);
 
-			if (OpenFlAssets.exists(levelPath, type))
+			if (FunkinAssets.exists(levelPath, type))
 				return levelPath;
 
 			levelPath = getLibraryPathForce(file, "shared");
 
-			if (OpenFlAssets.exists(levelPath, type))
+			if (FunkinAssets.exists(levelPath, type))
 				return levelPath;
 		}
 

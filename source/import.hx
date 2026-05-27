@@ -33,6 +33,7 @@ import meta.data.ClientPrefs;
 import meta.data.Conductor;
 import meta.data.CoolUtil;
 import meta.data.Highscore;
+import meta.data.FunkinAssets;
 
 import meta.states.*;
 

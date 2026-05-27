@@ -42,16 +42,16 @@ class Metadata
 
             #if MODS_ALLOWED
             var moddyFile:String = Paths.modsJson(path);
-            if(FileSystem.exists(moddyFile)) {
+            if(FunkinAssets.exists(moddyFile)) {
                 rawJson = File.getContent(moddyFile).trim();
             }
             #end
 
             if(rawJson == null) {
                 #if sys
-                rawJson = File.getContent(Paths.json(path)).trim();
+                rawJson = FunkinAssets.getContent(Paths.json(path)).trim();
                 #else
-                rawJson = Assets.getText(Paths.json(path)).trim();
+                rawJson = FunkinAssets.getText(Paths.json(path)).trim();
                 #end	
             }
 

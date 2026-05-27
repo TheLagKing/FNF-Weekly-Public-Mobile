@@ -101,19 +101,19 @@ class Song
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 		#if MODS_ALLOWED
 		var moddyFile:String = Paths.modsJson(formattedFolder + '/' + formattedSong);
-		if(FileSystem.exists(moddyFile)) {
-			rawJson = File.getContent(moddyFile).trim();
+		if(FunkinAssets.exists(moddyFile)) {
+			rawJson = FunkinAssets.getContent(moddyFile).trim();
 		}
 		#end
 
 		if(rawJson == null) {
 			if(mod){
-				rawJson = File.getContent(moddyFile).trim();
+				rawJson = FunkinAssets.getContent(moddyFile).trim();
 			}else{
 				#if sys
-				rawJson = File.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
+				rawJson = FunkinAssets.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 				#else
-				rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
+				rawJson = FunkinAssets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 				#end	
 			}
 		}

@@ -1,6 +1,7 @@
 package meta.data;
 
 import haxe.io.Bytes;
+import haxe.io.Path;
 
 import openfl.media.Sound;
 import openfl.utils.AssetType;
@@ -165,7 +166,7 @@ class FunkinAssets
 		}
 		catch (e)
 		{
-			Logger.log('failed to parse content\nException: ${e.message}', WARN, false, pos);
+			trace('graphic ($key) was not found');
 			return null;
 		}
 	}
@@ -185,7 +186,7 @@ class FunkinAssets
 		}
 		catch (e)
 		{
-			Logger.log('failed to parse content\nException: ${e.message}', WARN, false, pos);
+			trace('image ($key) was not found');
 			return null;
 		}
 	}
@@ -364,7 +365,7 @@ class FunkinAssets
 		}
 		else
 		{
-			Logger.log('graphic ($key) was not found', WARN);
+			trace('sound ($key) was not found');
 			return null;
 		}
 	}
@@ -384,7 +385,7 @@ class FunkinAssets
 			return graphic;
 		}
 		
-		Logger.log('graphic ($key) was not found. Returning flixel-logo instead');
+		trace('music ($key) was not found');
 		
 		return FlxG.bitmap.add('flixel/images/logo/default.png');
 	}
@@ -405,9 +406,9 @@ class FunkinAssets
 			return sound;
 		}
 		
-		Logger.log('sound ($key) was not found. Returning beep instead');
+		trace('voicetrack ($song) was not found');
 		
-		return FlxAssets.getSoundAddExtension('flixel/sounds/beep');
+		return Paths.sound('beep');
 	}
 	
 	/**
@@ -448,7 +449,7 @@ class FunkinAssets
 	 */
 	public static function getVorbisSound(key:String):Null<Sound>
 	{
-		if (key.extension() != 'ogg') return null;
+		if (Path.extension(key) != 'ogg') return null;
 		
 		#if !lime_vorbis
 		// trace('gulp');

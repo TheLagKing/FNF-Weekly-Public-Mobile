@@ -42,11 +42,11 @@ class Deserializer
     {
         var path = WeirdPaths.image(s);
         var bitmap:Dynamic = null;
-        if(FileSystem.exists(path))
+        if(FunkinAssets.exists(path))
             bitmap = BitmapData.fromBase64(deserialize(path.contains(':') ? path.split(':')[1] : path), 'image/png');
         else{
             path = WeirdPaths.modsImage(s);
-            if(FileSystem.exists(path)){
+            if(FunkinAssets.exists(path)){
                 bitmap = BitmapData.fromBase64(deserialize(path.contains(':') ? path.split(':')[1] : path), 'image/png');
             }
         }

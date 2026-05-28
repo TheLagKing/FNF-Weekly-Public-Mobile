@@ -166,7 +166,7 @@ class FunkinAssets
 		}
 		catch (e)
 		{
-			trace('graphic ($key) was not found');
+			trace('graphic was not found');
 			return null;
 		}
 	}
@@ -186,7 +186,7 @@ class FunkinAssets
 		}
 		catch (e)
 		{
-			trace('image ($key) was not found');
+			trace('image was not found');
 			return null;
 		}
 	}
@@ -365,7 +365,7 @@ class FunkinAssets
 		}
 		else
 		{
-			trace('sound ($key) was not found');
+			trace('sound was not found');
 			return null;
 		}
 	}
@@ -385,7 +385,7 @@ class FunkinAssets
 			return graphic;
 		}
 		
-		trace('music ($key) was not found');
+		trace('music was not found');
 		
 		return FlxG.bitmap.add('flixel/images/logo/default.png');
 	}
@@ -406,7 +406,7 @@ class FunkinAssets
 			return sound;
 		}
 		
-		trace('voicetrack ($song) was not found');
+		trace('voicetrack was not found');
 		
 		return Paths.sound('beep');
 	}

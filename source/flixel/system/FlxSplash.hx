@@ -59,13 +59,9 @@ class FlxSplash extends MusicBeatState
 		new FlxTimer().start(1, function(tmr:FlxTimer){
 			video = new FlxVideo();
 			video.load(Paths.video('intro'));
-			video.setGraphicSize(FlxG.width, FlxG.height);
-			video.updateHitbox();
-			video.screenCenter();
 			video.onEndReached.add(function() {
 				onComplete();
 			});
-			add(video);
 			video.play();
 		});
 

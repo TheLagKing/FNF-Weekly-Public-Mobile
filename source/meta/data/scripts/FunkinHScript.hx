@@ -24,8 +24,6 @@ import meta.states.editors.*;
 import gameObjects.*;
 #if sys
 import openfl.media.Sound;
-import sys.FileSystem;
-import sys.io.File;
 #end
 import windows.*;
 
@@ -73,14 +71,14 @@ class FunkinHScript extends FunkinScript
 	{
 		if (name == null)
 			name = file;
-		return fromString(File.getContent(file), name, additionalVars);
+		return fromString(FunkinAssets.getContent(file), name, additionalVars);
 	}
 	
 	public static function parseFile(file:String, ?name:String)
 	{
 		if (name == null)
 			name = file;
-		return parseString(File.getContent(file), name);
+		return parseString(FunkinAssets.getContent(file), name);
 	}
 
 	var interpreter:Interp = new Interp();
@@ -564,7 +562,7 @@ class HScriptSubstate extends meta.states.substate.MusicBeatSubstate
 
 		for (filePath in [#if MODS_ALLOWED Paths.modFolders(fileName), Paths.mods(fileName), #end Paths.getPreloadPath(fileName)])
 		{
-			if (!FileSystem.exists(filePath)) continue;
+			if (!FunkinAssets.exists(filePath)) continue;
 
 			// some shortcuts
 			var variables = new Map<String, Dynamic>();

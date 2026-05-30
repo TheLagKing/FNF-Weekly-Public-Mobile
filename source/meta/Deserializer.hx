@@ -11,7 +11,6 @@ import lime.media.AudioBuffer;
 import haxe.crypto.Base64;
 import haxe.io.Bytes;
 import meta.data.*;
-import sys.FileSystem;
 
 using StringTools;
 

@@ -15,10 +15,6 @@ import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import meta.data.Section.SwagSection;
-#if MODS_ALLOWED
-import sys.io.File;
-import sys.FileSystem;
-#end
 import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
@@ -109,23 +105,23 @@ class Character extends FlxSprite
 
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
+		if (!FunkinAssets.exists(path)) {
 			path = Paths.getPreloadPath(characterPath);
 		}
 
-		if (!FileSystem.exists(path))
+		if (!FunkinAssets.exists(path))
 		#else
 		var path:String = Paths.getPreloadPath(characterPath);
-		if (!Assets.exists(path))
+		if (!FunkinAssets.exists(path))
 		#end
 		{
 			path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 		}
 
 		#if MODS_ALLOWED
-		var rawJson = File.getContent(path);
+		var rawJson = FunkinAssets.getContent(path);
 		#else
-		var rawJson = Assets.getText(path);
+		var rawJson = FunkinAssets.getText(path);
 		#end
 
 		return cast Json.parse(rawJson);
@@ -168,9 +164,9 @@ class Character extends FlxSprite
 				//var modTextureToFind:String = Paths.modFolders("images/"+json.image);
 				//var textureToFind:String = Paths.getPath('images/' + json.image, new AssetType();
 
-				if (FileSystem.exists(modTxtToFind) || FileSystem.exists(txtToFind) || Assets.exists(txtToFind))
+				if (FunkinAssets.exists(modTxtToFind) || FunkinAssets.exists(txtToFind))
 				#else
-				if (Assets.exists(Paths.getPath('images/' + json.image + '.txt', TEXT)))
+				if (FunkinAssets.exists(Paths.getPath('images/' + json.image + '.txt', TEXT)))
 				#end
 				{
 					spriteType = "packer";
@@ -183,9 +179,9 @@ class Character extends FlxSprite
 				//var modTextureToFind:String = Paths.modFolders("images/"+json.image);
 				//var textureToFind:String = Paths.getPath('images/' + json.image, new AssetType();
 
-				if (FileSystem.exists(modAnimToFind) || FileSystem.exists(animToFind) || Assets.exists(animToFind))
+				if (FunkinAssets.exists(modAnimToFind) || FunkinAssets.exists(animToFind))
 				#else
-				if (Assets.exists(Paths.getPath('images/' + json.image + '/Animation.json', TEXT)))
+				if (FunkinAssets.exists(Paths.getPath('images/' + json.image + '/Animation.json', TEXT)))
 				#end
 				{
 					spriteType = "texture";

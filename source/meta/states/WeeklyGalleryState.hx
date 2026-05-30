@@ -1,6 +1,5 @@
 package meta.states;
 
-import sys.FileSystem;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
@@ -118,12 +117,12 @@ class WeeklyGalleryState extends MusicBeatState
         description.y = bg.y + bg.height + 3;
         add(description);
 
-        weekFolders = FileSystem.readDirectory(Paths.file('images/gallery/weeks'));
+        weekFolders = FunkinAssets.readDirectory(Paths.file('images/gallery/weeks'));
         weekFolders.sort(function(a, b) return Std.parseInt(a) - Std.parseInt(b));        
 
         for (folder in weekFolders){
 
-            var allFiles = FileSystem.readDirectory(Paths.file('images/gallery/weeks/$folder'));
+            var allFiles = FunkinAssets.readDirectory(Paths.file('images/gallery/weeks/$folder'));
             allFiles.sort(function(a, b) return Std.parseInt(a) - Std.parseInt(b));        
             var images = [];
 	    var descs = []; 

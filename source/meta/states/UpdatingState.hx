@@ -109,7 +109,7 @@ class UpdatingState extends MusicBeatState
 	override function create()
 	{
 	// Heres The link to change - cross
-        var http = new haxe.Http("https://raw.githubusercontent.com/OrbyyOrbinaut/FNF-Weekly-Public/main/VERSION.txt");
+        var http = new haxe.Http("https://raw.githubusercontent.com/TheLagKing/FNF-Weekly-Public/main/VERSION.txt");
         // link to the Github txt that tells you the version
         // ("https://raw.githubusercontent.com/Crossknife/FNF-Weekly-TEST/main/VERSION.txt");
         // do rawgithub
@@ -143,21 +143,21 @@ class UpdatingState extends MusicBeatState
             //trace('searching through: ' + sWfolderB + 'assets');
         
             trace(path);
-            if (sys.FileSystem.exists(path) && sys.FileSystem.isDirectory(path)) {
-                var entries = sys.FileSystem.readDirectory(path);
+            if (FunkinAssets.exists(path) && FunkinAssets.isDirectory(path)) {
+                var entries = FunkinAssets.readDirectory(path);
                 for (entry in entries) {
                     trace(entries);
                     trace(entry);
-                    if (sys.FileSystem.isDirectory(path + '\\' + entry)) {
+                    if (FunkinAssets.isDirectory(path + '\\' + entry)) {
                         deleteDirRecursively(path + '\\' + entry);
-                        sys.FileSystem.deleteDirectory(path + '\\' + entry);
+                        FunkinAssets.deleteDirectory(path + '\\' + entry);
                     } 
                     else {
                         if (entry.endsWith('.TTF') || entry.endsWith('.ttf') || entry.endsWith('.otf')) {
                             trace('font :(');
                         }
                         else {
-                            sys.FileSystem.deleteFile(path + '\\' + entry);
+                            FunkinAssets.deleteFile(path + '\\' + entry);
                         }
                     }
                 }

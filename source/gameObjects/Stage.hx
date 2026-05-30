@@ -24,13 +24,6 @@ import meta.data.StageData.StageFile;
 
 using StringTools;
 
-#if MODS_ALLOWED
-import sys.FileSystem;
-import sys.io.File;
-#else
-import openfl.utils.Assets;
-#end
-
 class Stage extends FlxTypedGroup<FlxBasic>
 {
 	public var stageScripts:Array<FunkinScript> = [];
@@ -90,7 +83,7 @@ class Stage extends FlxTypedGroup<FlxBasic>
 			var files = [#if MODS_ALLOWED Paths.modFolders(baseFile), #end Paths.getPreloadPath(baseFile)];
 			for (file in files)
 			{
-				if (FileSystem.exists(file))
+				if (FunkinAssets.exists(file))
 				{
 					#if LUA_ALLOWED
 					if (ext == 'hscript' || ext == "hxs" || ext == "hx"){
@@ -207,14 +200,14 @@ class StageData {
 		#if MODS_ALLOWED
 		var modPath:String = Paths.modFolders('stages/' + stage + '.json');
 
-		if(FileSystem.exists(modPath))
-			rawJson = File.getContent(modPath);
-		else if(FileSystem.exists(path))
-			rawJson = File.getContent(path);
+		if(FunkinAssets.exists(modPath))
+			rawJson = FunkinAssets.getContent(modPath);
+		else if(FunkinAssets.exists(path))
+			rawJson = FunkinAssets.getContent(path);
 
 		#else
-		if(Assets.exists(path))
-			rawJson = Assets.getText(path);
+		if(FunkinAssets.exists(path))
+			rawJson = FunkinAssets.getText(path);
 		#end
 		else
 			return null;

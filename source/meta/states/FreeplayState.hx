@@ -21,9 +21,6 @@ import meta.states.*;
 import meta.states.substate.*;
 import meta.data.*;
 import gameObjects.*;
-#if MODS_ALLOWED
-import sys.FileSystem;
-#end
 
 using StringTools;
 

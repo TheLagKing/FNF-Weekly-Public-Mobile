@@ -4,11 +4,6 @@ import haxe.Json;
 import haxe.format.JsonParser;
 import lime.utils.Assets;
 
-#if sys
-import sys.io.File;
-import sys.FileSystem;
-#end
-
 typedef MetadataFile = {
     var card:MetadataCard;
     var credits:MetadataCredits;
@@ -43,7 +38,7 @@ class Metadata
             #if MODS_ALLOWED
             var moddyFile:String = Paths.modsJson(path);
             if(FunkinAssets.exists(moddyFile)) {
-                rawJson = File.getContent(moddyFile).trim();
+                rawJson = FunkinAssets.getContent(moddyFile).trim();
             }
             #end
 

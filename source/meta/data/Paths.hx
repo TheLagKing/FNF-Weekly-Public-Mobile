@@ -213,7 +213,7 @@ class Paths
 		#if sys
 		if (FunkinAssets.exists(asset)) return FunkinAssets.getContent(asset);
 		#end
-		if (Assets.exists(asset)) return Assets.getText(asset);
+		if (FunkinAssets.exists(asset)) return FunkinAssets.getText(asset);
 
 		return null;
 	}
@@ -317,7 +317,7 @@ class Paths
 				return FunkinAssets.getContent(levelPath);
 		}
 		#end
-		return Assets.getText(getPath(key, TEXT));
+		return FunkinAssets.getText(getPath(key, TEXT));
 	}
 
 	inline static public function font(key:String)

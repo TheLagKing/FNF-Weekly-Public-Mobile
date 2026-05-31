@@ -110,7 +110,7 @@ class Video4 extends FlxVideoSprite
 		
 		if (oneTimeUse) bitmap.onEndReached.add(this.destroy, true);
 		bitmap.onPlaying.add(() -> {
-			if (isStateAffected) bitmap.rate = PlayState?.instance.playbackRate ?? 1.0;
+			if (isStateAffected) bitmap.rate = 1.0;
 		}, true);
 	}
 	
@@ -122,7 +122,10 @@ class Video4 extends FlxVideoSprite
 	 */
 	public function delayAndStart(delay:Float = 0)
 	{
-		FlxTimer.wait(delay, play);
+		new FlxTimer().start(delay, function(tmr:FlxTimer)
+							 {
+								 play();
+							 });
 	}
 	
 	/**
@@ -199,7 +202,6 @@ class Video4 extends FlxVideoSprite
 	override function destroy()
 	{
 		onSkip.removeAll();
-		onSkip.destroy();
 		if (bitmap != null)
 		{
 			bitmap.stop();

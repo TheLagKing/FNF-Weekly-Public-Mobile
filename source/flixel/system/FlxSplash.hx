@@ -66,6 +66,10 @@ class FlxSplash extends MusicBeatState
 				video.setGraphicSize(FlxG.width, FlxG.height);
 				video.updateHitbox();
 			});
+
+			video.onEnd(() ->{
+				onComplete();
+			}, true);
 				
 			if (video.load(Paths.video('intro')))
 			{
@@ -227,8 +231,6 @@ class FlxSplash extends MusicBeatState
 		#end
 		// FlxG.stage.removeChild(_sprite);
 		// FlxG.stage.removeChild(_text);
-		if (video != null)
-			video.dispose();
 		
 		FlxG.switchState(Type.createInstance(nextState, []));
 		FlxG.game._gameJustStarted = true;

@@ -154,6 +154,31 @@ class FunkinAssets
 		
 		return prefixes;
 	}
+
+	public static function getText(path:String):String
+	{
+		return getContent(path);
+	}
+
+	public static function deleteFile(path:String):Void
+	{
+		#if (MODS_ALLOWED || ASSET_REDIRECT)
+			if (FileSystem.exists(path) && !FileSystem.isDirectory(path))
+			{
+				FileSystem.deleteFile(path);
+			}
+		#end
+	}
+
+	public static function deleteDirectory(path:String):Void
+	{
+		#if (MODS_ALLOWED || ASSET_REDIRECT)
+			if (FileSystem.exists(path) && FileSystem.isDirectory(path))
+			{
+				FileSystem.deleteDirectory(path);
+			}
+		#end
+	}
 	
 	/**
 	 * Safer alternative to directly using `haxe.Json.parse`

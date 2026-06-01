@@ -110,6 +110,7 @@
 	<haxelib name="discord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="away3d"/>
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 
 	<!-- <haxedef name="FLX_NO_PITCH" /> -->
 

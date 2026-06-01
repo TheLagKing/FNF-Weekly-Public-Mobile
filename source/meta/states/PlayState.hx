@@ -1173,12 +1173,12 @@ class PlayState extends MusicBeatState
 		}
 
 		var file:String = Paths.json(songName + '/dialogue'); //Checks for json/Psych Engine dialogue
-		if (OpenFlAssets.exists(file)) {
+		if (FunkinAssets.exists(file)) {
 			dialogueJson = DialogueBoxPsych.parseDialogue(file);
 		}
 
 		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
-		if (OpenFlAssets.exists(file)) {
+		if (FunkinAssets.exists(file)) {
 			dialogue = CoolUtil.coolTextFile(file);
 		}
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
@@ -1468,9 +1468,9 @@ class PlayState extends MusicBeatState
 
 		for (folder in foldersToCheck)
 		{
-			if(FileSystem.exists(folder))
+			if(FunkinAssets.exists(folder))
 			{
-				for (file in FileSystem.readDirectory(folder))
+				for (file in FunkinAssets.readDirectory(folder))
 				{
 					if(!filesPushed.contains(file)){
 						if(file.endsWith('.lua'))
@@ -1754,15 +1754,15 @@ class PlayState extends MusicBeatState
 		var shitters = [];
 		#if MODS_ALLOWED
 		var baseFile = scriptFile;
-		if(FileSystem.exists(Paths.modFolders(baseFile + '.lua'))) {
+		if(FunkinAssets.exists(Paths.modFolders(baseFile + '.lua'))) {
 			scriptFile = Paths.modFolders(baseFile+ '.lua');
 			doPush = true;
-		} else if(FileSystem.exists(Paths.modFolders(baseFile + '.hscript'))) {
+		} else if(FunkinAssets.exists(Paths.modFolders(baseFile + '.hscript'))) {
 			scriptFile = Paths.modFolders(baseFile+ '.hscript');
 			doPush = true;
 		} else {
 			scriptFile = Paths.getPreloadPath(baseFile);
-			if(FileSystem.exists(scriptFile + '.lua') || FileSystem.exists(scriptFile + '.hscript')) {
+			if(FunkinAssets.exists(scriptFile + '.lua') || FunkinAssets.exists(scriptFile + '.hscript')) {
 				doPush = true;
 			}
 		}
@@ -1770,7 +1770,7 @@ class PlayState extends MusicBeatState
 
 		#else
 		scriptFile = Paths.getPreloadPath(scriptFile);
-		if(Assets.exists(scriptFile)) {
+		if(FunkinAssets.exists(scriptFile)) {
 			doPush = true;
 		}
 		#end
@@ -1901,7 +1901,7 @@ class PlayState extends MusicBeatState
 		var foundFile:Bool = false;
 		var fileName:String = #if MODS_ALLOWED Paths.modFolders('videos/' + name + '.' + Paths.VIDEO_EXT); #else ''; #end
 		#if sys
-		if(FileSystem.exists(fileName)) {
+		if(FunkinAssets.exists(fileName)) {
 			foundFile = true;
 		}
 		#end
@@ -1909,9 +1909,9 @@ class PlayState extends MusicBeatState
 		if(!foundFile) {
 			fileName = Paths.video(name);
 			#if sys
-			if(FileSystem.exists(fileName)) {
+			if(FunkinAssets.exists(fileName)) {
 			#else
-			if(OpenFlAssets.exists(fileName)) {
+			if(FunkinAssets.exists(fileName)) {
 			#end
 				foundFile = true;
 			}
@@ -2449,9 +2449,9 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
+		if (FunkinAssets.exists(Paths.modsJson(songName + '/events')) || FunkinAssets.exists(file)) {
 		#else
-		if (OpenFlAssets.exists(file)) {
+		if (FunkinAssets.exists(file)) {
 		#end
 			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
 			for (event in eventsData) //Event Notes
@@ -2620,7 +2620,7 @@ class PlayState extends MusicBeatState
 				var files = [#if MODS_ALLOWED Paths.modFolders(baseFile), #end Paths.getPreloadPath(baseFile)];
 				for (file in files)
 				{
-					if (FileSystem.exists(file))
+					if (FunkinAssets.exists(file))
 					{
 						if (ext == 'lua')
 						{

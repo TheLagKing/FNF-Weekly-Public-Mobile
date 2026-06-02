@@ -40,7 +40,7 @@ class OptionsState extends MusicBeatState
 	public static var onPlayState:Bool = false;
 
 	function openSelectedSubstate(label:String) {
-	#if mobile virtualPad.visible = false; #end
+	#if mobile work = virtualPad.visible = false; #end
 		switch(label) {
 			case 'Notes':
 				openSubState(new meta.data.options.NoteSettingsSubState());
@@ -107,12 +107,16 @@ class OptionsState extends MusicBeatState
 		#if mobile
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B);
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			work = true;
+		});
 		#end
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
+		if (!work) return;
 		if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end) {
 			changeSelection(-1);
 		}

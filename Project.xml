@@ -110,6 +110,7 @@
 	<haxelib name="discord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="away3d"/>
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 
 	<!-- <haxedef name="FLX_NO_PITCH" /> -->
 
@@ -135,11 +136,6 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 		
 	<section if="android">
-		<config:android permission="android.permission.VIBRATE" />
-		<config:android permission="android.permission.INTERNET" />
-		<config:android permission="android.permission.ACCESS_WIFI_STATE"/>
-		<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
-		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
 		<certificate path="weekly-key.keystore" password="weeklyteam" alias="fckingweeklyidfk" alias-password="weeklyteam" if="android" unless="debug" />
 	</section>
 

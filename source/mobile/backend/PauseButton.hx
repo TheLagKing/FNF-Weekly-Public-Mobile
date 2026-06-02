@@ -61,15 +61,22 @@ class PauseButton extends FlxSprite
 		super.update(elapsed);
 
 		#if mobile
-		if (!visible || !active || onClick == null)
-			return;
-
+		if (!visible || !active || onClick == null) return;
+		
 		for (touch in FlxG.touches.list)
 		{
-			if (touch.justPressed && touch.overlaps(this))
+			if (_lastTouchId == -1)
 			{
-				onClick();
-				break;
+				if (touch.pressed && touch.overlaps(this))
+				{
+					_lastTouchId = touch.touchPointID;
+					onClick();
+					break;
+				}
+			}
+			else if (_lastTouchId == touch.touchPointID && !touch.pressed)
+			{
+				_lastTouchId = -1;
 			}
 		}
 		#end

@@ -117,17 +117,18 @@ class GameOverSubstate extends MusicBeatSubstate
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
 	{
-		var justTouched:Bool = false;
-		var acceptPressed:Bool = controls.ACCEPT || justTouched;
+		var acceptPressed:Bool = controls.ACCEPT;
 		var backPressed:Bool = controls.BACK;
-	    #if mobile
-		if(isVideo) {
-                for (touch in FlxG.touches.list)
-	                if (touch.justPressed)
-		                justTouched = true;
+			
+		#if mobile
+		if(isVideo)
+			{
+			for (touch in FlxG.touches.list)
+			if (touch.justPressed)
+			acceptPressed = true;
 		} else {
-				acceptPressed = acceptPressed || virtualPad.buttonA.justPressed;
-				backPressed = backPressed || virtualPad.buttonB.justPressed;
+			acceptPressed = acceptPressed || virtualPad.buttonA.justPressed;
+			backPressed = backPressed || virtualPad.buttonB.justPressed;
 		}
 		#end
 		
@@ -142,8 +143,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
 		
-		if (acceptPressed)
-		{
+		if (acceptPressed) {
 			endBullshit();
 		}
 

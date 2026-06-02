@@ -19,7 +19,7 @@ class PauseButton extends FlxSprite
 
 	public function new(x:Float = 0, y:Float = 0, ?onClick:Void->Void)
 	{
-		var posX:Float = (x == 0) ? FlxG.width - 130 : x;
+		var posX:Float = (x == 0) ? 25 : x;
 		var posY:Float = (y == 0) ? 25 : y;
 
 		super(posX, posY);
@@ -30,11 +30,11 @@ class PauseButton extends FlxSprite
 
 		try
 		{
-  #if ios
+		#if ios
 		bitmap = openfl.utils.Assets.getBitmapData(path);
-  #else
-  bitmap = BitmapData.fromFile(path);
-  #end
+		#else
+		bitmap = BitmapData.fromFile(path);
+		#end
 		}
 
 		if (bitmap != null)
@@ -66,7 +66,7 @@ class PauseButton extends FlxSprite
 
 		for (touch in FlxG.touches.list)
 		{
-			if (touch.justPressed && touch.overlaps(this, camera))
+			if (touch.justPressed && touch.overlaps(this))
 			{
 				onClick();
 				break;

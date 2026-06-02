@@ -1617,7 +1617,7 @@ class PlayState extends MusicBeatState
 		addMobileControls(false);
 		hitbox.visible = false;
 
-		if (ClientPrefs.PauseButton)
+		if (ClientPrefs.pauseButton)
 		{
 			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
 			{

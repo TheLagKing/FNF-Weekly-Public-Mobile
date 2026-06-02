@@ -141,8 +141,7 @@
 		<config:android permission="android.permission.ACCESS_WIFI_STATE"/>
 		<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
 		<config:android permission="android.permission.CAPTURE_AUDIO_OUTPUT" />
-		<android compile-sdk-version="35" />
-		<android target-sdk-version="35" />
+		<android target-sdk-version="34" />
 		<android min-sdk-version="19" />
 		<certificate path="weekly-key.keystore" password="weeklyteam" alias="fckingweeklyidfk" alias-password="weeklyteam" if="android" unless="debug" />
 	</section>

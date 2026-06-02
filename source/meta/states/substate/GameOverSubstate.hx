@@ -118,11 +118,16 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		var justTouched:Bool = false;
+		var acceptPressed:Bool = controls.ACCEPT || justTouched;
+		var backPressed:Bool = controls.BACK;
 	    #if mobile
 		if(isVideo) {
                 for (touch in FlxG.touches.list)
 	                if (touch.justPressed)
 		                justTouched = true;
+		} else {
+				acceptPressed = acceptPressed || virtualPad.buttonA.justPressed;
+				backPressed = backPressed || virtualPad.buttonB.justPressed;
 		}
 		#end
 		
@@ -136,13 +141,13 @@ class GameOverSubstate extends MusicBeatSubstate
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 0.6, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 		}
-
-		if (controls.ACCEPT || justTouched #if mobile || virtualPad.buttonA.justPressed #end)
+		
+		if (acceptPressed)
 		{
 			endBullshit();
 		}
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
+		if (backPressed)
 		{
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;

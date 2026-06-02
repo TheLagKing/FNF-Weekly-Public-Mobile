@@ -38,7 +38,7 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool = false;
-	public static var work:Bool = false;
+	public static var work:Bool = true;
 
 	function openSelectedSubstate(label:String) {
 	#if mobile work = virtualPad.visible = false; #end
@@ -117,7 +117,7 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (!work) return;
+		#if mobile if (!work) return; #end
 		if (controls.UI_UP_P #if mobile || virtualPad.buttonUp.justPressed #end) {
 			changeSelection(-1);
 		}

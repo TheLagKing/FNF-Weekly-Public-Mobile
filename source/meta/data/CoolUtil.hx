@@ -85,9 +85,9 @@ class CoolUtil
 	{
 		var daList:Array<String> = [];
 		#if sys
-		if(FileSystem.exists(path)) daList = File.getContent(path).trim().split('\n');
+		if(FunkinAssets.exists(path)) daList = FunkinAssets.getContent(path).trim().split('\n');
 		#else
-		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');
+		if(FunkinAssets.exists(path)) daList = FunkinAssets.getText(path).trim().split('\n');
 		#end
 
 		for (i in 0...daList.length)

@@ -86,7 +86,6 @@ class CopyState extends MusicBeatState
 		});
 
 		super.create();
-		copyTweakfile();
 	}
 
 	override function update(elapsed:Float)
@@ -227,38 +226,11 @@ class CopyState extends MusicBeatState
 			}
 		}
 
-		filesToRemove.push("content/modsList.txt");
-
 		locatedFiles = locatedFiles.filter(file -> !filesToRemove.contains(file));
 
 		maxLoopTimes = locatedFiles.length;
 
 		return (maxLoopTimes <= 0);
-	}
-
-    private function copyTweakfile()
-    {
-        var sourceFilePath = "content/modsList.txt"; // Path to the file
-        var destinationFilePath = "modsList.txt"; // Path to where you want to copy the file
-
-        if (OpenFLAssets.exists(sourceFilePath))
-        {
-            try 
-            {
-                var fileBytes:ByteArray = OpenFLAssets.getBytes(sourceFilePath); // Retrieve file data as bytes
-                File.saveBytes(destinationFilePath, fileBytes); // Save bytes to the new location
-                trace("Copied test.txt to external storage successfully.");
-            } 
-            catch (e:haxe.Exception)
-            {
-                failedFiles.push('${sourceFilePath} (${e.message})');
-                failedFilesStack.push('${sourceFilePath} (${e.stack})');
-            }
-        }
-        else 
-        {
-            trace("File modsList.txt does not exist.");
-        }
 	}
 }
 #end

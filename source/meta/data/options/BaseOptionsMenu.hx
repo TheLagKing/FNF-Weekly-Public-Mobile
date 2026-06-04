@@ -178,13 +178,13 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				if(controls.ACCEPT #if mobile || virtualPad.buttonA.justPressed #end)
 					curOption.callback();
 			} else if(curOption.type != 'label') {
-				if(controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end);
+				if(controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end) {
+					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P #if mobile || virtualPad.buttonLeft.justPressed || virtualPad.buttonRight.justPressed #end);
 					if(holdTime > 0.5 || pressed) {
 						if(pressed) {
 							var add:Dynamic = null;
 							if(curOption.type != 'string') {
-								add = controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end? -curOption.changeValue : curOption.changeValue;
+								add = controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -curOption.changeValue : curOption.changeValue;
 							}
 
 							switch(curOption.type)
@@ -224,7 +224,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							curOption.change();
 							FlxG.sound.play(Paths.sound('scrollMenu'));
 						} else if(curOption.type != 'string') {
-							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
+							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end ? -1 : 1);
 							if(holdValue < curOption.minValue) holdValue = curOption.minValue;
 							else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 

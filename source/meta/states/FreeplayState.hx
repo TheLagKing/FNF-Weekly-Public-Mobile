@@ -44,6 +44,7 @@ class FreeplayState extends MusicBeatState
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
+	var work:Bool = true;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
@@ -227,6 +228,9 @@ class FreeplayState extends MusicBeatState
 		#if mobile
 		removeVirtualPad();
         addVirtualPad(LEFT_FULL, FREEPLAY);
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			work = true;
+		});
 		#end
 
 		
@@ -344,7 +348,7 @@ class FreeplayState extends MusicBeatState
 			changeDiff(1);
 		else if (upP || downP) changeDiff();
 
-		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed #end)
+		if (controls.BACK #if mobile || virtualPad.buttonB.justPressed && work #end)
 		{
 			persistentUpdate = false;
 			if(colorTween != null) {
@@ -360,6 +364,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			#if mobile
 			removeVirtualPad();
+			work = false;
 			#end
 			openSubState(new GameplayChangersSubstate());
 		}
@@ -427,6 +432,10 @@ class FreeplayState extends MusicBeatState
 		else if(controls.RESET #if mobile || virtualPad.buttonR.justPressed #end)
 		{
 			persistentUpdate = false;
+			#if mobile 
+			removeVirtualPad();
+		    work = false;
+		    #end
 			openSubState(new ResetScoreSubState(songs[curSelected].songName, curDifficulty, songs[curSelected].songCharacter));
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}

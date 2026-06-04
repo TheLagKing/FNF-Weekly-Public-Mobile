@@ -7,10 +7,8 @@ import openfl.utils.ByteArray;
 import haxe.io.Path;
 import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
-import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
-import sys.io.Process;
 import flixel.system.FlxSplash;
 
 /**
@@ -28,7 +26,6 @@ class CopyState extends MusicBeatState
 	public var loadingImage:FlxSprite;
 	public var loadingBar:FlxBar;
 	public var loadedText:FlxText;
-	public var thread:ThreadPool;
 
 	var failedFilesStack:Array<String> = [];
 	var failedFiles:Array<String> = [];
@@ -67,31 +64,21 @@ class CopyState extends MusicBeatState
 		loadedText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		add(loadedText);
 
-		var ticks:Int = 15;
-		if (maxLoopTimes <= 15)
-			ticks = 1;
-
-		thread = new ThreadPool(0, CoolUtil.getCPUThreadsCount());
-		thread.doWork.add(function(poop)
-		{
-			for (file in locatedFiles)
-			{
-				loopTimes++;
-				copyAsset(file);
-			}
-		});
-		new FlxTimer().start(0.5, (tmr) ->
-		{
-			thread.queue({});
-		});
-
 		super.create();
+		copyTweakfile();
 	}
 
 	override function update(elapsed:Float)
 	{
 		if (shouldCopy)
 		{
+			if (loopTimes < maxLoopTimes && canUpdate)
+			{
+				// Copy one file per frame instead of using threads
+				copyAsset(locatedFiles[loopTimes]);
+				loopTimes++;
+			}
+			
 			if (loopTimes >= maxLoopTimes && canUpdate)
 			{
 				if (failedFiles.length > 0)
@@ -138,7 +125,7 @@ class CopyState extends MusicBeatState
 				}
 				else
 				{
-					failedFiles.push(getFile(file) + " (File Dosen't Exist)");
+					failedFiles.push(getFile(file) + " (File Doesn't Exist)");
 					failedFilesStack.push('Asset ${getFile(file)} does not exist.');
 				}
 			}
@@ -226,11 +213,38 @@ class CopyState extends MusicBeatState
 			}
 		}
 
+		filesToRemove.push("content/modsList.txt");
+
 		locatedFiles = locatedFiles.filter(file -> !filesToRemove.contains(file));
 
 		maxLoopTimes = locatedFiles.length;
 
 		return (maxLoopTimes <= 0);
+	}
+
+    private function copyTweakfile()
+    {
+        var sourceFilePath = "content/modsList.txt";
+        var destinationFilePath = "modsList.txt";
+
+        if (OpenFLAssets.exists(sourceFilePath))
+        {
+            try 
+            {
+                var fileBytes:ByteArray = OpenFLAssets.getBytes(sourceFilePath);
+                File.saveBytes(destinationFilePath, fileBytes);
+                trace("Copied modsList.txt to external storage successfully.");
+            } 
+            catch (e:haxe.Exception)
+            {
+                failedFiles.push('${sourceFilePath} (${e.message})');
+                failedFilesStack.push('${sourceFilePath} (${e.stack})');
+            }
+        }
+        else 
+        {
+            trace("File modsList.txt does not exist.");
+        }
 	}
 }
 #end

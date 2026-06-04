@@ -47,7 +47,7 @@ class ClientPrefs {
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var camMovement:Bool = true;
-	public static var checkForUpdates:Int = 2;
+	public static var checkForUpdates:Int = 1;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var quantHSV:Array<Array<Int>> = [
@@ -177,6 +177,9 @@ class ClientPrefs {
 		FlxG.save.data.chartPresetList = chartPresetList;
 		FlxG.save.data.chartPresets = chartPresets;
 
+		FlxG.save.data.screensaver = screensaver;
+		FlxG.save.data.pauseButton = pauseButton;
+
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.opponentStrums = opponentStrums;
@@ -264,6 +267,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.chartPresets != null){
 			chartPresets = FlxG.save.data.chartPresets;
+		}
+		if(FlxG.save.data.screensaver != null) {
+			screensaver = FlxG.save.data.screensaver;
+		}
+		if(FlxG.save.data.pauseButton != null) {
+			pauseButton = FlxG.save.data.pauseButton;
 		}
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;

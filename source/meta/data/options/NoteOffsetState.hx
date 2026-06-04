@@ -327,7 +327,7 @@ class NoteOffsetState extends MusicBeatState
 			if(controls.UI_LEFT || controls.UI_RIGHT #if mobile || virtualPad.buttonLeft.pressed || virtualPad.buttonRight.pressed #end)
 			{
 				holdTime += elapsed;
-				if(controls.UI_LEFT #if mobile || virtualPad.buttonLeft.justPressed #end) mult = -1;
+				if(controls.UI_LEFT #if mobile || virtualPad.buttonLeft.pressed #end) mult = -1;
 			}
 
 			if(controls.UI_LEFT_R || controls.UI_RIGHT_R #if mobile || virtualPad.buttonLeft.justReleased || virtualPad.buttonRight.justReleased #end) holdTime = 0;
@@ -473,9 +473,9 @@ class NoteOffsetState extends MusicBeatState
 		beatText.visible = !onComboMenu;
 
 		if(onComboMenu)
-			changeModeText.text = '< Combo Offset (Press Accept to Switch) >';
+			changeModeText.text = '< Combo Offset (Press A to Switch) >';
 		else
-			changeModeText.text = '< Note/Beat Delay (Press Accept to Switch) >';
+			changeModeText.text = '< Note/Beat Delay (Press A to Switch) >';
 
 		changeModeText.text = changeModeText.text.toUpperCase();
 		FlxG.mouse.visible = onComboMenu;

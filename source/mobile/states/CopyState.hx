@@ -98,7 +98,7 @@ class CopyState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	public function copyAsset(file:String)
+	public function copyAsset()
 	{
 		if (!FileSystem.exists(file))
 		{
@@ -116,7 +116,7 @@ class CopyState extends MusicBeatState
 				}
 				else
 				{
-					failedFiles.push(getFile(file) + " (File Dosen't Exist)");
+					failedFiles.push(getFile(file) + " (File Doesn't Exist)");
 					failedFilesStack.push('Asset ${getFile(file)} does not exist.');
 				}
 			}

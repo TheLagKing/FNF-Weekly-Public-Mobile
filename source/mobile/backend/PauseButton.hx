@@ -22,7 +22,7 @@ class PauseButton extends FlxSprite
 		var posX:Float = (x == 0) ? 25 : x;
 		var posY:Float = (y == 0) ? 25 : y;
 
-		super(posX, posY);
+		super(25, 25);
 
 		#if mobile
 		var bitmap:BitmapData = null;
@@ -67,7 +67,7 @@ class PauseButton extends FlxSprite
 		{
 			if (_lastTouchId == -1)
 			{
-				if (touch.pressed && touch.overlaps(this))
+				if (touch.justPressed && touch.overlaps(this))
 				{
 					_lastTouchId = touch.touchPointID;
 					onClick();

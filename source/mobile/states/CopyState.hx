@@ -100,6 +100,8 @@ class CopyState extends MusicBeatState
 
 	public function copyAsset()
 	{
+		var file = locatedFiles[loopTimes];
+		loopTimes++;
 		if (!FileSystem.exists(file))
 		{
 			var directory = Path.directory(file);

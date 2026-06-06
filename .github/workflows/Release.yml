@@ -61,8 +61,8 @@ jobs:
       - name: Upload APK to Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release-build
-          name: FNF WEEKLY Release Build
+          tag_name: release-build-${{ github.run_number }}
+          name: FNF WEEKLY Release Build #${{ github.run_number }}
           files: export/release/android/bin/app/build/outputs/apk/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -150,8 +150,8 @@ jobs:
       - name: Upload IPA to Same Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: release-build
-          name: FNF WEEKLY Release Build
+          tag_name: release-build-${{ github.run_number }}
+          name: FNF WEEKLY Release Build #${{ github.run_number }}
           files: export/release/ios/build/Release-iphoneos/*.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

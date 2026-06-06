@@ -22,7 +22,7 @@ class PauseButton extends FlxSprite
 		var posX:Float = (x == 0) ? 25 : x;
 		var posY:Float = (y == 0) ? 25 : y;
 
-		super(25, 25);
+		super(posX, posY);
 
 		#if mobile
 		var bitmap:BitmapData = null;
@@ -44,9 +44,10 @@ class PauseButton extends FlxSprite
 
 		antialiasing = true;
 		scrollFactor.set();
-		alpha = 0.7;
+		alpha = 0.6;
 		scale.set(0.8, 0.8);
 		updateHitbox();
+		centerOffsets();
 
 		this.onClick = onClick;
 		#else

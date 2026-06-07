@@ -43,7 +43,7 @@ class PauseButton extends FlxSprite
 		}
 
 		antialiasing = true;
-		scrollFactor.set();
+		scrollFactor.set(0, 0);
 		alpha = 0.6;
 		scale.set(0.8, 0.8);
 		updateHitbox();

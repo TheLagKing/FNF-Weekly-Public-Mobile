@@ -46,6 +46,7 @@ class WeeklyMainMenuState extends MusicBeatState
 	var canClick:Bool = true;
 	var norbertcanIdle:Bool = false; // dumb and gay my b
 	var inTransiton:Bool = false;
+	var work:Bool = true;
 
 	var optionGrp:FlxTypedGroup<FlxSprite> = null;
 	var coins:Null<FlxTypedGroup<FlxSprite>> = null;
@@ -402,6 +403,7 @@ class WeeklyMainMenuState extends MusicBeatState
 		}
 
 		if (optionGrp != null) {
+			if (!work) return;
 			for(i in optionGrp.members){ 
 				if(FlxG.mouse.overlaps(i) && canClick){ //if hovering over a button
 					if (i == optionGrp.members[7]){ //if button is fc mode
@@ -440,6 +442,15 @@ class WeeklyMainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 		}
+	}
+
+	override function closeSubState() {
+		super.closeSubState();
+		#if mobile
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				work = true;
+			});
+		#end
 	}
 	
 	function selectOption(id:Int){
@@ -503,6 +514,7 @@ class WeeklyMainMenuState extends MusicBeatState
 			case 'reset':
 				if (optionGrp.members[8].active == true){
 					openSubState(new MarathonButtonsSubstate(0));
+					work = false;
 				}
 				canClick = true;
 			case 'more':

@@ -71,19 +71,14 @@ class CopyState extends MusicBeatState
 		if (maxLoopTimes <= 15)
 			ticks = 1;
 
-		thread = new ThreadPool(0, 1);
-		thread.doWork.add(function(poop)
-		{
-			for (file in locatedFiles)
-			{
-				loopTimes++;
-				copyAsset(file);
-			}
-		});
 		new FlxTimer().start(0.5, (tmr) ->
-		{
-			thread.queue({});
-		});
+			{
+				for (file in locatedFiles)
+					{
+						copyAsset(file);
+						loopTimes++;
+					}
+			});
 
 		super.create();
 		copyTweakfile();

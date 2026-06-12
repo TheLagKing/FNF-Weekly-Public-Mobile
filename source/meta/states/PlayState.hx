@@ -3165,7 +3165,7 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.onFocusLost();
-		if (startedCountdown && canPause)
+		if (startedCountdown && canPause && ClientPrefs.screensaver)
 		{
 			openPauseMenu();
 		}

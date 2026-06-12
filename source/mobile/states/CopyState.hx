@@ -1,17 +1,18 @@
 package mobile.states;
 
 #if mobile
+import flixel.util.typeLimit.NextState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;
 import haxe.io.Path;
 import flixel.ui.FlxBar;
 import flixel.ui.FlxBar.FlxBarFillDirection;
+import flixel.system.FlxSplash;
 import lime.system.ThreadPool;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
-import flixel.system.FlxSplash;
 
 /**
  * ...
@@ -19,7 +20,7 @@ import flixel.system.FlxSplash;
  */
 class CopyState extends MusicBeatState
 {
-	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'hxc', 'lua', 'json', 'frag', 'vert'];
+	private static final textFilesExtensions:Array<String> = ['ini', 'txt', 'xml', 'hxs', 'hx', 'lua', 'json', 'frag', 'vert'];
 	public static final IGNORE_FOLDER_FILE_NAME:String = "CopyState-Ignore.txt";
 	private static var directoriesToIgnore:Array<String> = [];
 	public static var locatedFiles:Array<String> = [];
@@ -43,7 +44,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			MusicBeatState.switchState(new FlxSplash());
+			FlxG.switchState(new FlxSplash());
 			return;
 		}
 
@@ -67,18 +68,19 @@ class CopyState extends MusicBeatState
 		loadedText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
 		add(loadedText);
 
-		var ticks:Int = 15;
-		if (maxLoopTimes <= 15)
-			ticks = 1;
-
-		new FlxTimer().start(0.5, (tmr) ->
+		thread = new ThreadPool(0, CoolUtil.getCPUThreadsCount());
+		thread.doWork.add(function(poop)
+		{
+			for (file in locatedFiles)
 			{
-				for (file in locatedFiles)
-					{
-						copyAsset(file);
-						loopTimes++;
-					}
-			});
+				loopTimes++;
+				copyAsset(file);
+			}
+		});
+		new FlxTimer().start(0.5, (tmr) ->
+		{
+			thread.queue({});
+		});
 
 		super.create();
 		copyTweakfile();
@@ -100,7 +102,7 @@ class CopyState extends MusicBeatState
 				
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () ->
 				{
-					MusicBeatState.switchState(new FlxSplash());
+					FlxG.switchState(new FlxSplash());
 				};
 		
 				canUpdate = false;
@@ -221,7 +223,7 @@ class CopyState extends MusicBeatState
 				}
 			}
 		}
-
+		
 		filesToRemove.push("content/modsList.txt");
 
 		locatedFiles = locatedFiles.filter(file -> !filesToRemove.contains(file));
@@ -230,8 +232,8 @@ class CopyState extends MusicBeatState
 
 		return (maxLoopTimes <= 0);
 	}
-
-    private function copyTweakfile()
+	
+	    private function copyTweakfile()
     {
         var sourceFilePath = "content/modsList.txt"; // Path to the file
         var destinationFilePath = "modsList.txt"; // Path to where you want to copy the file
@@ -255,5 +257,37 @@ class CopyState extends MusicBeatState
             trace("File modsList.txt does not exist.");
         }
 	}
+
+override function destroy()
+{
+    if (loadingBar != null)
+    {
+        remove(loadingBar);
+        loadingBar.destroy();
+        loadingBar = null;
+    }
+
+    if (loadingImage != null)
+    {
+        remove(loadingImage);
+        loadingImage.destroy();
+        loadingImage = null;
+    }
+
+    if (loadedText != null)
+    {
+        remove(loadedText);
+        loadedText.destroy();
+        loadedText = null;
+    }
+
+    if (thread != null)
+    {
+        thread.doWork.removeAll();
+        thread = null;
+    }
+
+    super.destroy();
+}
 }
 #end

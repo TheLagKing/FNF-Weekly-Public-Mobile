@@ -3165,6 +3165,10 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.onFocusLost();
+		if (startedCountdown && canPause)
+		{
+			openPauseMenu();
+		}
 	}
 
 	function resyncVocals():Void

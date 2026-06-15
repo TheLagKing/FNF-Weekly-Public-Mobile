@@ -4431,7 +4431,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
-		#if mobile hitbox.visible = false; #end
+		#if mobile hitbox.visible = pauseButton.alpha = false; #end
 
 		deathCounter = 0;
 		seenCutscene = false;

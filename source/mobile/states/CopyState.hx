@@ -1,7 +1,6 @@
 package mobile.states;
 
 #if mobile
-import flixel.util.typeLimit.NextState;
 import lime.utils.Assets as LimeAssets;
 import openfl.utils.Assets as OpenFLAssets;
 import openfl.utils.ByteArray;

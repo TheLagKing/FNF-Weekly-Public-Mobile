@@ -1621,7 +1621,8 @@ class PlayState extends MusicBeatState
 		{
 			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
 			{
-				openPauseMenu();
+				if (startedCountdown && canPause)
+					openPauseMenu();
 			});
 			add(pauseButton);
 			pauseButton.cameras = [camOther];
@@ -3165,7 +3166,7 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.onFocusLost();
-		if (startedCountdown && canPause && ClientPrefs.screensaver)
+		if (startedCountdown && canPause && !paused && ClientPrefs.screensaver)
 		{
 			openPauseMenu();
 		}

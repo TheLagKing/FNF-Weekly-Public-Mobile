@@ -1,95 +1,1 @@
-package mobile.backend;
-
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import openfl.display.BitmapData;
-import flixel.graphics.FlxGraphic;
-
-/**
- * Pause? PAUSE!!
- *
- * @author FalsoNova (Falso.BR)
- */
-class PauseButton extends FlxSprite
-{
-	public var onClick:Void->Void;
-
-	private var _lastTouchId:Int = -1;
-
-	public function new(x:Float = 0, y:Float = 0, ?onClick:Void->Void)
-	{
-		var posX:Float = (x == 0) ? 25 : x;
-		var posY:Float = (y == 0) ? 25 : y;
-
-		super(posX, posY);
-
-		#if mobile
-		var bitmap:BitmapData = null;
-		var path:String = 'assets/mobile/pauseButton.png';
-
-		try
-		{
-		#if ios
-		bitmap = openfl.utils.Assets.getBitmapData(path);
-		#else
-		bitmap = BitmapData.fromFile(path);
-		#end
-		}
-
-		if (bitmap != null)
-		{
-			loadGraphic(FlxGraphic.fromBitmapData(bitmap));
-		}
-
-		antialiasing = true;
-		scrollFactor.set(0, 0);
-		alpha = 0.6;
-		scale.set(0.8, 0.8);
-		updateHitbox();
-		centerOffsets();
-
-		this.onClick = onClick;
-		#else
-        trace('PauseButton only Avaliable for Mobile Targets!');
-		visible = false;
-		active = false;
-		#end
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		#if mobile
-		if (!visible || !active || onClick == null) return;
-		
-		for (touch in FlxG.touches.list)
-		{
-			if (_lastTouchId == -1)
-			{
-				if (touch.justPressed && touch.overlaps(this))
-				{
-					_lastTouchId = touch.touchPointID;
-					onClick();
-					break;
-				}
-			}
-			else if (_lastTouchId == touch.touchPointID && !touch.pressed)
-			{
-				_lastTouchId = -1;
-			}
-		}
-		#end
-	}
-
-	/**
-	 * A function to create
-	 */
-	public static function create(camera:FlxCamera, ?onClick:Void->Void):PauseButton
-	{
-		var btn = new PauseButton(0, 0, onClick);
-		btn.cameras = [camera];
-		return btn;
-	}
-}
+package mobile.backend;import flixel.FlxG;import flixel.FlxSprite;import flixel.FlxCamera;import openfl.display.BitmapData;import flixel.graphics.FlxGraphic;/** shit im ass at this (TheLagKing)*/class PauseButton extends PlayState {	private var _lastTouchId:Int = -1;	public var PauseButton:FlxSprite;	public var PauseCircle:FlxSprite;	override public function create() {		super();		#if mobile		if (!ClientPrefs.pauseButton) return;    pauseButton = new FlxSprite ();    pauseButton.loadGraphic(Paths.image('assets/mobile/pauseButton'));    pauseButton.cameras = [camOther];    pauseButton.scale.set(0.8, 0.8);    pauseButton.updateHitbox();    pauseButton.setPosition((FlxG.width - pauseButton.width) - 35, 35);    pauseCircle = new FlxSprite ();    pauseCircle.loadGraphic(Paths.image('assets/mobile/pauseCircle'));    pauseCircle.cameras = [camOther];    pauseCircle.scale.set(0.84, 0.8);    pauseCircle.updateHitbox();    pauseCircle.x = ((pauseButton.x + (pauseButton.width / 2)) - (pauseCircle.width / 2));    pauseCircle.y = ((pauseButton.y + (pauseButton.height / 2)) - (pauseCircle.height / 2));    pauseCircle.alpha = 0.1;    add(pauseCircle);    add(pauseButton);    #end	}	override function update(elapsed:Float)	{		super.update(elapsed);		#if mobile		if (!visible || !active || !ClientPrefs.pauseButton) return;				for (touch in FlxG.touches.list)		{			if (_lastTouchId == -1)			{				if (touch.justPressed && touch.overlaps(pauseButton) && startedCountdown && canPause)				{					_lastTouchId = touch.touchPointID;					openPauseMenu();					break;				}			}			else if (_lastTouchId == touch.touchPointID && !touch.pressed)			{				_lastTouchId = -1;			}		}		#end	}}

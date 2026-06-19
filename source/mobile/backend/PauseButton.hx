@@ -20,27 +20,34 @@ class PauseButton extends PlayState {
 		super();
 
 		#if mobile
-		if (!ClientPrefs.pauseButton) return;
-    pauseButton = new FlxSprite ();
-    pauseButton.loadGraphic(Paths.image('assets/mobile/pauseButton'));
-    pauseButton.cameras = [camOther];
-    pauseButton.scale.set(0.8, 0.8);
-    pauseButton.updateHitbox();
-    pauseButton.setPosition((FlxG.width - pauseButton.width) - 35, 35);
+			if (!ClientPrefs.pauseButton) return;
+		pauseButton = new FlxSprite ();
+		pauseButton.loadGraphic(Paths.image('assets/mobile/pauseButton'));
+		pauseButton.cameras = [camOther];
+		pauseButton.scale.set(0.8, 0.8);
+		pauseButton.updateHitbox();
+		pauseButton.setPosition((FlxG.width - pauseButton.width) - 35, 35);
 
-    pauseCircle = new FlxSprite ();
-    pauseCircle.loadGraphic(Paths.image('assets/mobile/pauseCircle'));
-    pauseCircle.cameras = [camOther];
-    pauseCircle.scale.set(0.84, 0.8);
-    pauseCircle.updateHitbox();
-    pauseCircle.x = ((pauseButton.x + (pauseButton.width / 2)) - (pauseCircle.width / 2));
-    pauseCircle.y = ((pauseButton.y + (pauseButton.height / 2)) - (pauseCircle.height / 2));
-    pauseCircle.alpha = 0.1;
+		pauseCircle = new FlxSprite ();
+		pauseCircle.loadGraphic(Paths.image('assets/mobile/pauseCircle'));
+		pauseCircle.cameras = [camOther];
+		pauseCircle.scale.set(0.84, 0.8);
+		pauseCircle.updateHitbox();
+		pauseCircle.x = ((pauseButton.x + (pauseButton.width / 2)) - (pauseCircle.width / 2));
+		pauseCircle.y = ((pauseButton.y + (pauseButton.height / 2)) - (pauseCircle.height / 2));
+		pauseCircle.alpha = 0.1;
 
-    add(pauseCircle);
-    add(pauseButton);
-    #end
+		add(pauseCircle);
+		add(pauseButton);
+		#end
 
+	}
+
+	override public function endSong():Void {
+		#if mobile
+			if (!ClientPrefs.pauseButton)
+				pauseButton.visible = pauseCircle.visible = false;
+		#end
 	}
 
 
@@ -55,7 +62,7 @@ class PauseButton extends PlayState {
 
 		#if mobile
 
-		if (!visible || !active || !ClientPrefs.pauseButton) return;
+		if (!ClientPrefs.pauseButton) return;
 
 		
 

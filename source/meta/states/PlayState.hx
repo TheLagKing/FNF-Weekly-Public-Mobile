@@ -1616,17 +1616,6 @@ class PlayState extends MusicBeatState
 		#if mobile
 		addMobileControls(false);
 		hitbox.visible = false;
-
-		if (ClientPrefs.pauseButton)
-		{
-			var pauseButton = new mobile.backend.PauseButton(0, 0, function()
-			{
-				if (startedCountdown && canPause)
-					openPauseMenu();
-			});
-			add(pauseButton);
-			pauseButton.cameras = [camOther];
-		}
 		#end
 
 		super.create();
@@ -3206,8 +3195,8 @@ class PlayState extends MusicBeatState
 
 	public var paused:Bool = false;
 	public var canReset:Bool = true;
-	var startedCountdown:Bool = false;
-	var canPause:Bool = true;
+	public var startedCountdown:Bool = false;
+	public var canPause:Bool = true;
 
 	override public function update(elapsed:Float)
 	{
